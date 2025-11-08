@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'app-home',
   imports: [CommonModule, ButtonModule, TranslateModule],
   templateUrl: './home.html',
-  styleUrl: './home.css',
+  styleUrl: './home.scss',
 })
 export class Home {
   private readonly translation = inject(Translation);
