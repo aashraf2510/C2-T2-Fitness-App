@@ -28,13 +28,11 @@ import { ToastModule } from 'primeng/toast';
 
 // Translation
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
+import { DEFAULT_LANGUAGE } from './core/constants/translation.constants';
 import { TRANSLATION_INITIALIZER } from './core/initializers/translation.initializer';
 import { createCustomTranslateLoader } from './core/services/translation/custom-translate-loader';
-import { DEFAULT_LANGUAGE } from './core/constants/translation.constants';
 
 // Auth LIB
-import { API_CONFIG } from 'auth-api-kp';
-import { environment } from '@fitness-app/environment/baseUrl.dev';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
@@ -46,29 +44,29 @@ export const appConfig: ApplicationConfig = {
       withInterceptorsFromDi()
     ),
     // Auth API Configuration
-    {
-      provide: API_CONFIG,
-      useValue: {
-        baseUrl: `${environment.baseApiUrl}api`,
-        apiVersion: 'v1',
-        endpoints: {
-          auth: {
-            login: 'auth/signin',
-            register: 'auth/signup',
-            logout: 'auth/logout',
-            forgotPassword: 'auth/forgotPassword',
-            verifyResetCode: 'auth/verifyResetCode',
-            resetPassword: 'auth/resetPassword',
-            profileData: 'auth/profile-data',
-            editProfile: 'auth/editProfile',
-            changePassword: 'auth/change-password',
-            deleteMe: 'auth/deleteMe',
-            uploadPhoto: 'auth/upload-photo',
-            forgetPasswordForm: 'auth/forgetPasswordForm',
-          },
-        },
-      },
-    },
+    // {
+    //   provide: API_CONFIG,
+    //   useValue: {
+    //     baseUrl: `${environment.baseApiUrl}api`,
+    //     apiVersion: 'v1',
+    //     endpoints: {
+    //       auth: {
+    //         login: 'auth/signin',
+    //         register: 'auth/signup',
+    //         logout: 'auth/logout',
+    //         forgotPassword: 'auth/forgotPassword',
+    //         verifyResetCode: 'auth/verifyResetCode',
+    //         resetPassword: 'auth/resetPassword',
+    //         profileData: 'auth/profile-data',
+    //         editProfile: 'auth/editProfile',
+    //         changePassword: 'auth/change-password',
+    //         deleteMe: 'auth/deleteMe',
+    //         uploadPhoto: 'auth/upload-photo',
+    //         forgetPasswordForm: 'auth/forgetPasswordForm',
+    //       },
+    //     },
+    //   },
+    // },
 
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
