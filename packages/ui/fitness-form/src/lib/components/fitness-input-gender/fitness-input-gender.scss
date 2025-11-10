@@ -1,7 +1,6 @@
 .gender-container {
   font-family: "Baloo Thambi 2", cursive;
-  background-color: black;
-  color: black;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,8 +10,8 @@
   .gender-item {
     border: 1px solid #ffffff;
     border-radius: 50%;
-    width: 6.5rem;
-    height: 6.5rem;
+    width: 7rem;
+    height: 7rem;
     display: flex;
     flex-direction: column;
     align-items: center;

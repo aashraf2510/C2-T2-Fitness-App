@@ -1,5 +1,7 @@
+// Core
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 // Shared-components
 import { FitnessInput, FitnessInputGender, Gender } from '@fitness-app/fitness-form';
@@ -7,7 +9,7 @@ import { FitnessInput, FitnessInputGender, Gender } from '@fitness-app/fitness-f
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, FitnessInput, FitnessInputGender],
+  imports: [ReactiveFormsModule, FitnessInput, FitnessInputGender,RouterModule],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
