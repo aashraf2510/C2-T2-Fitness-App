@@ -96,8 +96,10 @@
               </picture>
               {{item.header}}
             </h3>
-            <p class="service-p">{{item.paragraph1}}</p>
-            <p class="service-p">{{item.paragraph2}}</p>
+            <div id="service-{{$index}}-desc">
+              <p class="service-p">{{item.paragraph1}}</p>
+              <p class="service-p">{{item.paragraph2}}</p>
+            </div>
           </article>
         </li>
         <div [class.hidden]="$index !== 1" class="line-break"></div>
