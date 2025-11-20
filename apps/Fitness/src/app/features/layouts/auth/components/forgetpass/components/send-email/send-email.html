@@ -1,1 +1,22 @@
-<p>send-email works!</p>
+<form
+    [formGroup]="forgetPassForm"
+    (ngSubmit)="forgetpasswordSubmit()"
+    role="form"
+    aria-label="Forgot Password Form"
+>
+    <lib-fitness-input
+        formControlName="email"
+        [errorHandilgControl]="forgetPassForm.get('email')!"
+        placeholder="Enter your email"
+        type="email"
+        id="email"
+    ></lib-fitness-input>
+
+    <button 
+        type="submit" 
+        [disabled]="forgetPassForm.invalid || isLoading()"
+        class="solid-button"
+    >
+        {{ isLoading() ? 'Sending...' : 'Send Code' }}
+    </button>
+</form>

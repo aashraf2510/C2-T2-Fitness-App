@@ -1,1 +1,38 @@
-<p>confirm-otp works!</p>
+<form
+    [formGroup]="verifyCodeForm"
+    (ngSubmit)="verifyCodeSubmit()"
+    role="form"
+    aria-label="Verification code form"
+>
+    <div class="otp-wrapper">
+        <p-inputOtp
+            formControlName="otpCode"
+            [length]="6"
+            [integerOnly]="true"
+            (onComplete)="verifyCodeSubmit()"
+        >
+        </p-inputOtp>
+    </div>
+
+    <div class="resend-wrapper">
+        <button
+            type="button"
+            class="resend-button"
+            (click)="resendVerificationCode()"
+            [disabled]="isResending() || cooldownSeconds() > 0"
+        >
+            Resend Code
+            @if (cooldownSeconds() > 0) {
+                ({{ cooldownSeconds() }}s)
+            }
+        </button>
+    </div>
+
+    <button 
+        type="submit" 
+        [disabled]="verifyCodeForm.invalid || isLoading()"
+        class="solid-button"
+    >
+        {{ isLoading() ? 'Verifying...' : 'Verify Code' }}
+    </button>
+</form>
