@@ -28,5 +28,25 @@
             "about-features": "Our Key Fitness Services",
             "about-features-desc": "Explore our main services including personal training, cardio, quality equipment, and nutrition guidance."
         }
+    },
+    "why-us": {
+        "section": "WHY US",
+        "title": "Elevate fitness with the best way possible",
+        "paragraph": "We offer a fitness journey that's tailored to your goals, supported by professional trainers and a welcoming community. Whether it's weight loss, strength building, or overall wellness, our proven methods.",
+        "step1": {
+            "id": "01",
+            "header": "personalized fitness plans",
+            "paragraph": "We tailor every workout to fit your unique goals and fitness level ensuring"
+        },
+        "step2": {
+            "id": "02",
+            "header": "results-driven focus",
+            "paragraph": "Everything we do is designed to help you achieve measurable results, "
+        },
+        "step3": {
+            "id": "03",
+            "header": "state-of-the-art equipment",
+            "paragraph": "We provide the latest in gym equipment, from cardio machines to free "
+        }
     }
 }
