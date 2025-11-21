@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 // Core
 import {Component, DestroyRef, inject, signal} from "@angular/core";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -17,13 +18,16 @@ import {Router, RouterLink} from "@angular/router";
 import {CLIENT_ROUTES} from "apps/Fitness/src/app/core/constants/client-routes";
 // package
 import {AuthApiKpService, ErrorResponse, SignInResponse} from "auth-api-kp";
+
+import {RouteBuilderService} from "../../../../../core/services/router/route-builder.service";
 @Component({
     selector: "app-login",
     imports: [ReactiveFormsModule, FitnessInput, TranslatePipe,RouterLink],
     templateUrl: "./login.html",
     styleUrl: "./login.scss",
 })
-export class Login {
+export class Login  implements OnInit {
+
     // Denpendency Injection
     private readonly formBuilder = inject(FormBuilder);
     private readonly destroyRef = inject(DestroyRef);
@@ -31,8 +35,20 @@ export class Login {
     private readonly _router = inject(Router);
     public _messageService = inject(MessageService);
     private readonly _translate = inject(TranslateService);
-    routes = CLIENT_ROUTES;
+     _routeBuilder = inject(RouteBuilderService);
+    ROUTES = CLIENT_ROUTES;
     isLoading = signal<boolean>(false);
+
+
+    ngOnInit(): void {
+        console.log(['/', this.currentLang,this.ROUTES.auth.base, this.ROUTES.auth.forgetpass].join('/'));
+    }
+
+    get currentLang(): string {
+        return this._translate.getCurrentLang();
+    }
+
+
 
     loginForm: FormGroup = this.formBuilder.group({
         email: ["", [Validators.required, Validators.email]],

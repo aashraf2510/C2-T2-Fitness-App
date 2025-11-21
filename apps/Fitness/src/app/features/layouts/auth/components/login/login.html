@@ -27,7 +27,7 @@
             ></lib-fitness-input>
             <a
                 class="forget-link"
-                [routerLink]="[routes.auth,routes.auth.forgetpass]"
+                [routerLink]="_routeBuilder.buildPath(ROUTES.auth.base, ROUTES.auth.forgetpass)"
                 >{{ "login.forgotPassword" | translate }}</a
             >
 
@@ -41,7 +41,7 @@
 
         <p class="register">
             {{ "login.noAccount" | translate }}
-            <a [routerLink]="[routes.auth,routes.auth.register]">{{ "login.signUp" | translate }}</a>
+            <a  [routerLink]="_routeBuilder.buildPath(ROUTES.auth.base, ROUTES.auth.register)">{{ "login.signUp" | translate }}</a>
         </p>
     </div>
 </section>
