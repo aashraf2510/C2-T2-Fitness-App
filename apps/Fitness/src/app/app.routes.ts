@@ -66,13 +66,13 @@ function createLanguageRoutes(): Route[] {
                     ],
                 },
                 {
-                    path: "auth",
+                    path: CLIENT_ROUTES.auth.base,
                     title: "Authentication",
                     component: Auth,
                     canActivate: [translationPreloadGuard],
                     children: [
                         {
-                            path: "login",
+                            path: CLIENT_ROUTES.auth.login,
                             title: "Login",
                             canActivate: [translationPreloadGuard],
                             loadComponent: () =>
@@ -81,7 +81,7 @@ function createLanguageRoutes(): Route[] {
                                 ),
                         },
                         {
-                            path: "register",
+                            path: CLIENT_ROUTES.auth.register,
                             title: "Register",
                             canActivate: [translationPreloadGuard],
                             loadComponent: () =>
@@ -90,7 +90,7 @@ function createLanguageRoutes(): Route[] {
                                 ),
                         },
                         {
-                            path: "forgetpass",
+                            path: CLIENT_ROUTES.auth.forgetpass,
                             title: "Forget Password",
                             canActivate: [translationPreloadGuard],
                             loadComponent: () =>
