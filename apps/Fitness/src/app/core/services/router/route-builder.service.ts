@@ -46,31 +46,4 @@ export class RouteBuilderService {
         return this.build(...segments);
     }
 
-    /**
-     * Navigate to a route using router
-     * @param segments - Route segments
-     * @returns Array for router navigation
-     * 
-     * Example usage:
-     *   this.router.navigate(this.routeBuilder.build(ROUTES.auth.login))
-     */
-    navigate(...segments: string[]): string[] {
-        return this.build(...segments);
-    }
-
-    /**
-     * Get language-specific route segments
-     * @returns Object with language-aware route constants
-     * 
-     * Example:
-     *   const routes = routeBuilder.getLanguageRoutes();
-     *   routes.auth.login  // 'auth'
-     */
-    getLanguageRoutes() {
-        const lang = this.currentLang;
-        return {
-            lang,
-            root: lang,
-        };
-    }
 }
