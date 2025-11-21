@@ -1,29 +1,25 @@
 #main-btn {
-  button {
-    font-family: var(--font-4);
-    border: 0;
-    outline: 0;
-    background-color: var(--main-color);
-    color: #F3F3F4;
-    padding: 12px 18px;
-    border-radius: 16px;
-    text-transform: capitalize;
-    font-weight: 700;
-
-  }
-  .icon {
-    width: 36px;
-    height: 36px;
-    background-color: var(--main-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2.12px solid #F3F3F4;
-    border-radius: 50%;
-    position: absolute;
-    right: -23px;
-    top: 0;
-
-
-  }
+    button {
+        font-family: var(--font-2);
+        border: 0;
+        outline: 0;
+        background-color: var(--main-color);
+        color: #f3f3f4;
+        padding: 0.625rem 1.125rem;
+        border-radius: 1.25rem;
+        text-transform: capitalize;
+    }
+    .icon {
+        width: 35px;
+        height: 35px;
+        background-color: var(--main-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2.12px solid #f3f3f4;
+        border-radius: 50%;
+        position: absolute;
+        right: -23px;
+        top: 0;
+    }
 }
