@@ -1,14 +1,15 @@
-import { Component, DestroyRef, EventEmitter, inject, Output, signal } from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { TranslateService } from "@ngx-translate/core";
-import { AuthApiKpService } from "auth-api-kp";
-import { MessageService } from "primeng/api";
-import { FitnessInput } from "@fitness-app/fitness-form";
+import {Component, DestroyRef, EventEmitter, inject, output, Output, signal} from "@angular/core";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {TranslateService, TranslatePipe} from "@ngx-translate/core";
+import {AuthApiKpService, ErrorResponse, ForgotPasswordResponse, SignInResponse} from "auth-api-kp";
+import {MessageService} from "primeng/api";
+import {FitnessInput} from "@fitness-app/fitness-form";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
     selector: "app-send-email",
-    imports: [FitnessInput, ReactiveFormsModule],
+    imports: [FitnessInput, ReactiveFormsModule, TranslatePipe],
     templateUrl: "./send-email.html",
     styleUrl: "./send-email.scss",
 })
@@ -17,9 +18,9 @@ export class SendEmail {
     private readonly _authApiKpService = inject(AuthApiKpService);
     private readonly _messageService = inject(MessageService);
     private readonly destroyRef = inject(DestroyRef);
-    
-    @Output() emailSubmitted = new EventEmitter<string>();
-    
+
+    emailSubmitted = output<string>();
+
     isLoading = signal<boolean>(false);
 
     forgetPassForm: FormGroup = new FormGroup({
@@ -36,35 +37,27 @@ export class SendEmail {
             .forgetPassword(this.forgetPassForm.value)
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
-                next: (res) => {
+                next: (res: ForgotPasswordResponse | ErrorResponse) => {
                     if ("error" in res) {
                         this._messageService.add({
                             severity: "error",
-                            detail: this._translate.instant("messagesToast.failedSendCode"),
+                            detail: (res as ErrorResponse).error,
                             life: 3000,
                         });
                     } else {
-                        if (res.message === "success") {
-                            this.emailSubmitted.emit(email);
-                            this._messageService.add({
-                                severity: "success",
-                                detail: this._translate.instant("messagesToast.otpSent"),
-                                life: 3000,
-                            });
-                        } else {
-                            this._messageService.add({
-                                severity: "error",
-                                detail: this._translate.instant("messagesToast.verificationFailed"),
-                                life: 3000,
-                            });
-                        }
+                        this.emailSubmitted.emit(email);
+                        this._messageService.add({
+                            severity: "success",
+                            detail: this._translate.instant("messagesToast.loginFailed"),
+                            life: 5000,
+                        });
                     }
                 },
-                error: () => {
+                error: (err: HttpErrorResponse) => {
                     this._messageService.add({
                         severity: "error",
-                        detail: this._translate.instant("messagesToast.unexpectedError"),
-                        life: 3000,
+                        detail: err.error,
+                        life: 5000,
                     });
                 },
                 complete: () => {

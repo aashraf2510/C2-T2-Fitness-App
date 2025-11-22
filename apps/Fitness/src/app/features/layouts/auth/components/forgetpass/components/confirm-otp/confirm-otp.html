@@ -37,6 +37,7 @@
         [disabled]="verifyCodeForm.invalid || isLoading()"
         class="confirm-button"
     >
-        {{ isLoading() ? 'Verifying...' : 'Confirm' }}
+        {{ isLoading() ? ('forgetpass.verifying' | translate) : ('forgetpass.confirm' | translate)
+        }}
     </button>
 </form>

@@ -7,16 +7,16 @@
     <lib-fitness-input
         formControlName="email"
         [errorHandilgControl]="forgetPassForm.get('email')!"
-        placeholder="Email"
+        placeholder="{{ 'forgetpass.email' | translate }}"
         type="email"
         id="email"
     ></lib-fitness-input>
 
-    <button 
-        type="submit" 
+    <button
+        type="submit"
         [disabled]="forgetPassForm.invalid || isLoading()"
         class="solid-button"
     >
-        {{ isLoading() ? 'Sending...' : 'Send Code' }}
+        {{ isLoading() ? ('forgetpass.sending' | translate) : ('forgetpass.sendCode' | translate) }}
     </button>
 </form>

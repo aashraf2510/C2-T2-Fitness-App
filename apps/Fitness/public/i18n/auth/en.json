@@ -1,29 +1,41 @@
 {
-  "login": {
-    "title": "Login",
-    "email": "Email",
-    "password": "Password",
-    "rememberMe": "Remember me",
-    "forgotPassword": "Forgot password?",
-    "submit": "Login",
-    "noAccount": "Don't have an account?",
-    "signUp": "Sign up"
-  },
-  "register": {
-    "title": "Register",
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "firstName": "First Name",
-    "lastName": "Last Name",
-    "submit": "Register",
-    "haveAccount": "Already have an account?",
-    "signIn": "Sign in"
-  },
-  "forgetpass": {
-    "title": "Forgot Password",
-    "email": "Email",
-    "submit": "Send Reset Link",
-    "backToLogin": "Back to login"
-  }
+    "login": {
+        "title": "Login",
+        "email": "Email",
+        "password": "Password",
+        "rememberMe": "Remember me",
+        "forgotPassword": "Forgot password?",
+        "submit": "Login",
+        "noAccount": "Don't have an account?",
+        "signUp": "Sign up"
+    },
+    "register": {
+        "title": "Register",
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "submit": "Register",
+        "haveAccount": "Already have an account?",
+        "signIn": "Sign in"
+    },
+    "forgetpass": {
+        "title": "Forgot Password",
+        "enterEmail": "Enter your email",
+        "email": "Email",
+        "sendCode": "Send Code",
+        "sending": "Sending...",
+        "otpTitle": "Verification Code",
+        "otpInstructions": "Enter the OTP sent to your email",
+        "confirm": "Confirm",
+        "verifying": "Verifying...",
+        "createTitle": "Create New Password",
+        "createHint": "Make sure it's 8 characters or more",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm Password",
+        "resetPassword": "Reset Password",
+        "submit": "Send Reset Link",
+        "backToLogin": "Back to login"
+    }
 }
