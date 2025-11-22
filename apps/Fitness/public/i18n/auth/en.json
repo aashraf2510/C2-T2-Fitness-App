@@ -1,41 +1,52 @@
 {
-    "login": {
-        "title": "Login",
-        "email": "Email",
-        "password": "Password",
-        "rememberMe": "Remember me",
-        "forgotPassword": "Forgot password?",
-        "submit": "Login",
-        "noAccount": "Don't have an account?",
-        "signUp": "Sign up"
+  "login": {
+    "title": "Login",
+    "greeting": "Hey There",
+    "welcomeBack": "WELCOME BACK",
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot Password?",
+    "or": "Or",
+    "submit": "Login",
+    "noAccount": "Don't Have An Account Yet?",
+    "signUp": "Register"
+  },
+  "register": {
+    "title": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "submit": "Register",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign in"
+  },
+  "forgetpass": {
+    "title": "Forgot Password",
+    "email": "Email",
+    "submit": "Send Reset Link",
+    "backToLogin": "Back to login"
+  },  "inputErrors": {
+    "required": "This field is required",
+    "minlength": {
+      "prefix": "Minimum",
+      "suffix": "characters required"
     },
-    "register": {
-        "title": "Register",
-        "email": "Email",
-        "password": "Password",
-        "confirmPassword": "Confirm Password",
-        "firstName": "First Name",
-        "lastName": "Last Name",
-        "submit": "Register",
-        "haveAccount": "Already have an account?",
-        "signIn": "Sign in"
+    "maxlength": {
+      "prefix": "Maximum",
+      "suffix": "characters allowed"
     },
-    "forgetpass": {
-        "title": "Forgot Password",
-        "enterEmail": "Enter your email",
-        "email": "Email",
-        "sendCode": "Send Code",
-        "sending": "Sending...",
-        "otpTitle": "Verification Code",
-        "otpInstructions": "Enter the OTP sent to your email",
-        "confirm": "Confirm",
-        "verifying": "Verifying...",
-        "createTitle": "Create New Password",
-        "createHint": "Make sure it's 8 characters or more",
-        "newPassword": "New Password",
-        "confirmPassword": "Confirm Password",
-        "resetPassword": "Reset Password",
-        "submit": "Send Reset Link",
-        "backToLogin": "Back to login"
-    }
+    "email": "Invalid email format (e.g., example@example.com)",
+    "passwordPattern": "Password must be at least 8 characters, include uppercase, lowercase, and a special character.",
+    "onlyNumbers": "This number is not valid",
+    "misMatch": "Passwords do not match"
+  },
+    "messagesToast": {
+    "loginSuccess": "Login successful! Welcome back.",
+    "loginFailed": "Login failed. Please check your credentials.",
+    "registerSuccess": "Registration successful! Please log in.",
+    "registerFailed": "Registration failed. Please try again."
+  }
 }
