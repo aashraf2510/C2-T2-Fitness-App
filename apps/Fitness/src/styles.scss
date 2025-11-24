@@ -18,3 +18,29 @@ html {
     max-width: 90%;
     margin: auto;
 }
+
+.auth-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1.25rem;
+    background-color: var(--orange-500);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-1);
+    font-weight: 800;
+    transition: background-color 0.3s ease;
+
+    &.invalid {
+        background-color: var(--gray-300);
+        cursor: not-allowed;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
