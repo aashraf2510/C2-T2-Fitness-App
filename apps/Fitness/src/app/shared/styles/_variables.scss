@@ -28,6 +28,12 @@
     --main-color: var(--orange-500);
     --text-color: var(--gray-900);
     --sec-grad-color: var(--gradient-70);
+
+    /* Footer */
+    --footer-bg: var(--gray-100);
+    --footer-text: var(--gray-900);
+    --icon-color:0;
+    --icon-border-color: var(--gray-900);
 }
 .dark-mode {
     --body: var(--gray-950);
@@ -41,4 +47,10 @@
     --section-bg: var(--white-95);
     --text-color: var(--gray-900);
     --line-break-bg: var(--gray-900-14);
+
+    /* Footer */
+    --footer-bg: var(--gray-900);
+    --footer-text: var(--gray-100);
+    --icon-color:1;
+    --icon-border-color: var(--gray-900);
 }
