@@ -1,1 +1,99 @@
-<p>account works!</p>
+<div class="page-container">
+ <!-- Background Section -->
+  <div class="background-section">
+    <img class="background-image" src="images/auth-background.png" alt="Authentication Background" />
+    <div class="overlay"></div>
+  </div>
+  
+  <!-- Content Section -->
+  <div class="content-section">
+    <div class="account-container">
+      <div class="content-wrapper">
+        <!-- Top Settings Row -->
+        <div class="settings-row">
+          <div class="setting-card goal">
+            <div class="setting-header">
+              <span class="setting-title">Your Goal</span>
+              <span class="setting-subtitle">TAP TO CHANGE</span>
+            </div>
+            <button class="setting-button">
+              <span>Lose Weight</span>
+              <i class="pi pi-sync"></i>
+            </button>
+          </div>
+
+          <div class="setting-card level">
+            <div class="setting-header">
+              <span class="setting-title">Level</span>
+              <span class="setting-subtitle">TAP TO CHANGE</span>
+            </div>
+            <button class="setting-button">
+              <span>Beginner</span>
+              <i class="pi pi-sync"></i>
+            </button>
+          </div>
+
+          <div class="setting-card weight">
+            <div class="setting-header">
+              <span class="setting-title">Weight</span>
+              <span class="setting-subtitle">TAP TO CHANGE</span>
+            </div>
+            <button class="setting-button">
+              <span>90 kg</span>
+              <i class="pi pi-sync"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Options Grid -->
+        <div class="options-grid">
+          <button class="option-card">
+            <i class="pi pi-lock"></i>
+            <span>Change Password</span>
+          </button>
+
+          <button class="option-card">
+            <i class="pi pi-globe"></i>
+            <span>Select Language<br/><span class="highlight">(English)</span></span>
+          </button>
+
+          <button class="option-card mood-card" (click)="onThemeToggle()">
+            <i [class]="themeService.theme() === 'dark' ? 'pi pi-moon' : 'pi pi-sun'"></i>
+            <span>Mood <span class="highlight">({{ themeService.theme() === 'dark' ? 'Dark' : 'Light' }})</span></span>
+            <label class="toggle-switch" (click)="$event.stopPropagation()">
+              <input 
+                type="checkbox" 
+                [checked]="themeService.theme() === 'dark'"
+                (change)="onThemeToggle()"
+              >
+              <span class="toggle-slider"></span>
+            </label>
+          </button>
+
+          <button class="option-card">
+            <i class="pi pi-shield"></i>
+            <span>Security</span>
+          </button>
+
+          <button class="option-card">
+            <i class="pi pi-file"></i>
+            <span>Privacy Policy</span>
+          </button>
+
+          <button class="option-card">
+            <i class="pi pi-question-circle"></i>
+            <span>Help</span>
+          </button>
+        </div>
+
+        <!-- Logout Button -->
+        <div class="logout-section">
+          <button class="logout-button">
+            <i class="pi pi-sign-out"></i>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
