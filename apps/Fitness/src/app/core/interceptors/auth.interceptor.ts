@@ -20,7 +20,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     if (req.url.includes("www.themealdb.com") == false) {
       const clonedRequest = req.clone({
           setHeaders: {
-              ...(token && {token: token}),
+              ...(token && {Authorization: `Bearer ${token}`}),
               lang: lang || "en",
           },
       });

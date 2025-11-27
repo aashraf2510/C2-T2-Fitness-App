@@ -37,8 +37,16 @@
 
     /* Account Page */
     --text-color:var(--gray-900);
-     --bg-color: 255, 255, 255, 0.5;
-     --hover-bg-color: 50, 50, 50, 0.6;
+    --bg-color: 255, 255, 255, 0.5;
+    --hover-bg-color: 50, 50, 50, 0.6;
+    --modal-bg-color: var(--gray-100) !important;
+    --modal-title-color: var(--black);
+    --modal-radio-color: var(--gray-900);
+    --modal-radio-background: var(--gray-300);
+    --logout-btn-text: var(--gray-900);
+    --logout-btn-color: var(--orange-500);
+    --hint-text: var(--gray-900-60);
+    --cancel-hover: 41, 38, 36, 0.3;
 }
 .dark-mode {
     --body: var(--gray-950);
@@ -63,4 +71,13 @@
     --text-color:var(--gray-100);
     --bg-color: 20, 20, 20, 0.85;
     --hover-bg-color: 50, 50, 50, 0.9;
+    --modal-bg-color: var(--gray-900)!important; ;
+    --modal-title-color: var(--white);
+    --modal-radio-background: var(--gray-100-14) ;
+    --modal-radio-color: var(--gray-200);
+    --logout-btn-text: var(--gray-300);
+    --logout-btn-color: var(--orange-500);
+    --hint-text: var(--gray-300);
+    --cancel-hover: 248, 240, 235, 0.3;
+    
 }

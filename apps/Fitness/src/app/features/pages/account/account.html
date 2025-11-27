@@ -1,5 +1,5 @@
 <div class="page-container">
- <!-- Background Section -->
+  <!-- Background Section -->
   <div class="background-section">
     <img class="background-image" src="images/auth-background.png" alt="Authentication Background" />
     <div class="overlay"></div>
@@ -11,35 +11,38 @@
       <div class="content-wrapper">
         <!-- Top Settings Row -->
         <div class="settings-row">
+          <!-- Goal Card -->
           <div class="setting-card goal">
-            <div class="setting-header">
+            <div class="setting-header" (click)="openGoalModal()">
               <span class="setting-title">Your Goal</span>
               <span class="setting-subtitle">TAP TO CHANGE</span>
             </div>
             <button class="setting-button">
-              <span>Lose Weight</span>
+              <span>{{ getDisplayGoal(user()?.goal) }}</span>
               <i class="pi pi-sync"></i>
             </button>
           </div>
 
+          <!-- Activity Level Card -->
           <div class="setting-card level">
-            <div class="setting-header">
+            <div class="setting-header" (click)="openActivityLevelModal()">
               <span class="setting-title">Level</span>
               <span class="setting-subtitle">TAP TO CHANGE</span>
             </div>
             <button class="setting-button">
-              <span>Beginner</span>
+              <span>{{ getDisplayActivityLevel(user()?.activityLevel) }}</span>
               <i class="pi pi-sync"></i>
             </button>
           </div>
 
+          <!-- Weight Card -->
           <div class="setting-card weight">
-            <div class="setting-header">
+            <div class="setting-header" (click)="openWeightModal()">
               <span class="setting-title">Weight</span>
               <span class="setting-subtitle">TAP TO CHANGE</span>
             </div>
             <button class="setting-button">
-              <span>90 kg</span>
+              <span>{{ user()?.weight }} kg</span>
               <i class="pi pi-sync"></i>
             </button>
           </div>
@@ -47,7 +50,7 @@
 
         <!-- Options Grid -->
         <div class="options-grid">
-          <button class="option-card">
+          <button class="option-card" (click)="openChangePasswordModal()">
             <i class="pi pi-lock"></i>
             <span>Change Password</span>
           </button>
@@ -88,7 +91,7 @@
 
         <!-- Logout Button -->
         <div class="logout-section">
-          <button class="logout-button">
+          <button class="logout-button" (click)="openLogoutConfirmation()">
             <i class="pi pi-sign-out"></i>
             <span>Logout</span>
           </button>
