@@ -8,6 +8,10 @@
             name="viewport"
             content="width=device-width, initial-scale=1"
         />
+        <meta
+            name="description"
+            content="Transform your body and mind with our fitness programs. Push past your limits and achieve your fitness goals."
+        />
         <link
             rel="icon"
             type="image/x-icon"
@@ -41,17 +45,19 @@
             rel="dns-prefetch"
             href="https://fitness.elevateegy.com"
         />
-
+        <!-- Google Fonts -->
         <link
-            href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
             rel="preload"
+            href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
             as="style"
-            onload="this.rel='stylesheet'"
+            onload="this.onload=null;this.rel='stylesheet'"
         />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-            rel="stylesheet"
-        />
+        <noscript>
+            <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+            />
+        </noscript>
 
         <!--  Preload PrimeIcons font -->
         <link
@@ -63,6 +69,20 @@
         />
 
         <!-- Preload LCP images -->
+        <link
+            rel="preload"
+            href="./images/hero/Theo Vance.avif"
+            as="image"
+            fetchpriority="high"
+            imagesrcset=""
+        />
+        <link
+            rel="preload"
+            href="./images/hero/bg-2.avif"
+            as="image"
+            fetchpriority="high"
+            imagesizes="100vw"
+        />
         <link
             rel="preload"
             href="./images/about-us/trainer-3-min.avif"

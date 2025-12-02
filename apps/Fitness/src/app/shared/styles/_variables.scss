@@ -23,6 +23,8 @@
     --orange-500: #ff4100;
     --gradient-70: #b4b3b1;
 
+    --body: var(--white);
+
     // About-Us
     --section-bg: var(--white-95);
     --text-color: var(--gray-900);
@@ -40,6 +42,10 @@
 }
 
 .dark {
+    --body: var(--gray-950);
+
+    --gradient-70: #232425;
+
     // About-Us
     --section-bg: var(--gray-950);
     --text-color: var(--gray-100);

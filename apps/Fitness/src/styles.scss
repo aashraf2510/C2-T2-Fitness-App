@@ -7,9 +7,17 @@ html {
     padding: 0;
     box-sizing: border-box;
     overflow-x: hidden;
+    background-color: var(--body);
 }
 
-/* meals and workouts */
+@font-face {
+    font-family: 'primeicons';
+    src: url('./../../../node_modules/primeicons/fonts/primeicons.woff2') format('woff2');
+    font-display: swap; /* This will display fonts when ready */
+    font-weight: normal;
+    font-style: normal;
+}
+
 .sec-gradient {
     background: linear-gradient(to bottom, var(--sec-grad-color) 0% 75%, transparent 70% 100%);
 }
@@ -19,10 +27,28 @@ html {
     margin: auto;
 }
 
-@font-face {
-    font-family: 'primeicons';
-    src: url('./../../../node_modules/primeicons/fonts/primeicons.woff2') format('woff2');
-    font-display: swap; /* This will display fonts when ready */
-    font-weight: normal;
-    font-style: normal;
+.auth-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1.25rem;
+    background-color: var(--orange-500);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-1);
+    font-weight: 800;
+    transition: background-color 0.3s ease;
+
+    &.invalid {
+        background-color: var(--gray-300);
+        cursor: not-allowed;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 }

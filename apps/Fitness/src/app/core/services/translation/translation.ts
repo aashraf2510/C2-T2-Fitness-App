@@ -10,7 +10,7 @@ import {
 import {TranslateService} from "@ngx-translate/core";
 import {Router} from "@angular/router";
 import {firstValueFrom} from "rxjs";
-import {PlatFormService} from "../platform/platform";
+
 import {StorageKeys} from "../../constants/storage.config";
 import {TranslationManagerService} from "./translation-manager.service";
 import {
@@ -22,6 +22,7 @@ import {
     getDirectionForLanguage,
     isRtlLanguage,
 } from "../../constants/translation.constants";
+import {PlatFormService} from "@fitness-app/services";
 
 @Injectable({providedIn: "root"})
 export class Translation {
@@ -265,10 +266,7 @@ export class Translation {
 
         const parts = this.getUrlParts();
         if (parts.length === 0) return null;
-
-        // Language is in uppercase in URL (EN, AR, etc.)
-        const maybeLang = parts[0]?.toLowerCase();
-        return ALL_LANGUAGES.includes(maybeLang as Language) ? maybeLang : null;
+        return parts[0] || null;
     }
 
     isRtl(lang?: string): boolean {
@@ -299,17 +297,17 @@ export class Translation {
         let newUrl: string;
         if (hasLangInUrl && parts.length > 1) {
             // Replace language in URL, keep rest of path
-            parts[0] = newLang.toUpperCase();
+            parts[0] = newLang.toLowerCase();
             newUrl = "/" + parts.join("/");
         } else if (hasLangInUrl && parts.length === 1) {
             // Only language in URL, just replace it
-            newUrl = `/${newLang.toUpperCase()}`;
+            newUrl = `/${newLang.toLowerCase()}`;
         } else if (parts.length > 0) {
             // No language in URL, add it at the beginning
-            newUrl = `/${newLang.toUpperCase()}/${parts.join("/")}`;
+            newUrl = `/${newLang.toLowerCase()}/${parts.join("/")}`;
         } else {
             // Empty path, just add language
-            newUrl = `/${newLang.toUpperCase()}`;
+            newUrl = `/${newLang.toLowerCase()}`;
         }
 
         // Navigate with hash location strategy

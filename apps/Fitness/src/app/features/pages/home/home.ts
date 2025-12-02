@@ -6,6 +6,7 @@ import {ButtonModule} from "primeng/button";
 import {Translation} from "../../../core/services/translation/translation";
 import {SeoService} from "../../../core/services/seo/seo.service";
 // Shared_components
+import {HeroSection} from "./components/hero-section/hero-section";
 import {HorizontalCarousel} from "../../../shared/components/ui/horizontalCarousel/horizontalCarousel";
 import {AboutUs} from "../about-us/about-us";
 import {Workouts} from "../workouts/workouts";
@@ -13,7 +14,17 @@ import {WhyUs} from "./components/why-us/why-us";
 import {Meals} from "../meals/meals";
 @Component({
     selector: "app-home",
-    imports: [ButtonModule, TranslateModule, AboutUs, WhyUs, Workouts, Meals, HorizontalCarousel],
+    imports: [
+        ButtonModule,
+        TranslateModule,
+        AboutUs,
+        Workouts,
+        Meals,
+        HorizontalCarousel,
+        HeroSection,
+        WhyUs,
+        Meals,
+    ],
     templateUrl: "./home.html",
     styleUrl: "./home.scss",
 })
