@@ -24,18 +24,7 @@ export class ChangePasswordModalComponent {
   protected translate = inject(TranslateService);
   private fb = inject(FormBuilder);
 
-  // submit(oldPassword: string, newPassword: string): void {
-  //   if (oldPassword && newPassword && newPassword.length >= 6) {
-  //     this.dialogRef.close({ oldPassword, newPassword });
-  //   }
-  // }
-
-  // close(): void {
-  //   this.dialogRef.close();
-  // }
-
-
-   passwordForm: FormGroup = this.fb.group({
+    passwordForm: FormGroup = this.fb.group({
     oldPassword: ['', [Validators.required]],
     newPassword: ['', [Validators.required, Validators.minLength(6)]]
   });
