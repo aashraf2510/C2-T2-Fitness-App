@@ -14,6 +14,8 @@
         "loggingIn": "جاري تسجيل الدخول..."
     },
     "register": {
+        "greeting": "أهلا وسهلا",
+        "createAccount": "إنشاء حساب",
         "title": "التسجيل",
         "email": "البريد الإلكتروني",
         "password": "كلمة المرور",
@@ -21,8 +23,29 @@
         "firstName": "الاسم الأول",
         "lastName": "اسم العائلة",
         "submit": "التسجيل",
-        "haveAccount": "لديك حساب بالفعل؟",
-        "signIn": "تسجيل الدخول"
+        "haveAccount": "لديك حساب بالفعل ؟",
+        "signIn": "تسجيل الدخول",
+        "forgotPassword": "نسيت كلمة المرور ؟",
+        "or": "أو",
+        "selectGender": {
+            "title": "أخبرنا عن نفسك!",
+            "subtitle": "نحتاج لمعرفة جنسك",
+            "male": "ذكر",
+            "female": "أنثى",
+            "next": "التالي"
+        },
+        "selectOld": {
+            "title": "كم عمرك ؟",
+            "subtitle": "هذا يساعدنا في إنشاء خطتك الشخصية",
+            "unit": "سنة",
+            "next": "التالي"
+        },
+        "selectWeight": {
+            "title": "ما هو وزنك ؟",
+            "subtitle": "هذا يساعدنا في إنشاء خطتك الشخصية",
+            "unit": "كجم",
+            "next": "تم"
+        }
     },
     "forgetpass": {
         "title": "نسيت كلمة المرور",

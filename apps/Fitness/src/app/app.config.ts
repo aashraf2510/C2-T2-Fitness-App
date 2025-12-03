@@ -14,7 +14,12 @@ import {
 // Hydration imports removed - not needed for static builds
 // import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
-import {provideRouter, withComponentInputBinding, withInMemoryScrolling, withViewTransitions} from "@angular/router";
+import {
+    provideRouter,
+    withComponentInputBinding,
+    withInMemoryScrolling,
+    withViewTransitions,
+} from "@angular/router";
 import {routes} from "./app.routes";
 
 // Primeng
@@ -32,6 +37,14 @@ import {createCustomTranslateLoader} from "./core/services/translation/custom-tr
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {environment} from "@fitness-app/environment/baseUrl.dev";
 import {API_CONFIG} from "auth-api-kp";
+
+// NgRx
+import {provideStore} from "@ngrx/store";
+import {provideEffects} from "@ngrx/effects";
+import {provideStoreDevtools} from "@ngrx/store-devtools";
+import {authReducer} from "./features/layouts/auth/store/auth.reducer";
+import {AuthEffects} from "./features/layouts/auth/store/auth.effects";
+import {isDevMode} from "@angular/core";
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -105,5 +118,10 @@ export const appConfig: ApplicationConfig = {
         ),
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         provideHttpClient(withFetch()),
+
+        // NgRx
+        provideStore({auth: authReducer}),
+        provideEffects([AuthEffects]),
+        provideStoreDevtools({maxAge: 25, logOnly: !isDevMode()}),
     ],
 };

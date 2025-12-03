@@ -14,6 +14,8 @@
         "loggingIn": "Logging In..."
     },
     "register": {
+        "greeting": "Hey There",
+        "createAccount": "Create An Account",
         "title": "Register",
         "email": "Email",
         "password": "Password",
@@ -21,8 +23,29 @@
         "firstName": "First Name",
         "lastName": "Last Name",
         "submit": "Register",
-        "haveAccount": "Already have an account?",
-        "signIn": "Sign in"
+        "haveAccount": "Already Have An Account ?",
+        "signIn": "Login",
+        "forgotPassword": "Forget Password ?",
+        "or": "Or",
+        "selectGender": {
+            "title": "TELL US ABOUT YOURSELF!",
+            "subtitle": "We Need To Know Your Gender",
+            "male": "Male",
+            "female": "Female",
+            "next": "Next"
+        },
+        "selectOld": {
+            "title": "How Old Are You ?",
+            "subtitle": "This Helps Us Create Your Personalized Plan",
+            "unit": "Year",
+            "next": "Next"
+        },
+        "selectWeight": {
+            "title": "What Is Your Weight ?",
+            "subtitle": "This Helps Us Create Your Personalized Plan",
+            "unit": "Kg",
+            "next": "Done"
+        }
     },
     "forgetpass": {
         "title": "Forgot Password",

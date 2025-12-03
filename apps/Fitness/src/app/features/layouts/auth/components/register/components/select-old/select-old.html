@@ -1,0 +1,29 @@
+<div class="select-old-container">
+    <div>
+        <app-progress-circle
+            [current]="2"
+            [total]="6"
+        ></app-progress-circle>
+    </div>
+
+    <div class="header">
+        <h1>{{ 'register.selectOld.title' | translate }}</h1>
+        <p>{{ 'register.selectOld.subtitle' | translate }}</p>
+    </div>
+
+    <div class="age-selection">
+        <lib-fitness-input-slider
+            [minWeight]="10"
+            [maxWeight]="100"
+            [unit]="'register.selectOld.unit' | translate"
+            (weightChange)="onAgeChange($event)"
+        ></lib-fitness-input-slider>
+    </div>
+
+    <button
+        class="next-btn"
+        (click)="submit()"
+    >
+        {{ 'register.selectOld.next' | translate }}
+    </button>
+</div>

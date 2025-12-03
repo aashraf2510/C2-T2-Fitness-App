@@ -1,0 +1,27 @@
+<div class="select-gender-container">
+    <div >
+        <app-progress-circle
+            [current]="1"
+            [total]="6"
+        ></app-progress-circle>
+    </div>
+
+    <div class="header">
+        <h1>{{ 'register.selectGender.title' | translate }}</h1>
+        <p>{{ 'register.selectGender.subtitle' | translate }}</p>
+    </div>
+
+    <div class="gender-options">
+        <lib-fitness-input-gender
+            (genderChange)="onGenderChange($event)"
+        ></lib-fitness-input-gender>
+    </div>
+
+    <button
+        class="next-btn"
+        [disabled]="!selectedGender()"
+        (click)="submit()"
+    >
+        {{ 'register.selectGender.next' | translate }}
+    </button>
+</div>
