@@ -1,7 +1,6 @@
 .why-us-layout {
     padding: 1rem;
-    background-color: var(--section-bg);
-    color: var(--text-color);
+    color: var(--whyus-text-color);
 
     @media (min-width: 48rem) {
         padding: 2.5rem 5rem;
@@ -35,7 +34,7 @@
                 top: 2.5rem;
                 bottom: 5.625rem;
                 width: 0.0938rem;
-                background: linear-gradient(to bottom, var(--step-border-color) 50%, transparent 50%);
+                background: linear-gradient(to bottom, var(--whyus-step-border-color) 50%, transparent 50%);
                 background-size: 0.0938rem 1.875rem;
                 background-repeat: repeat-y;
                 margin-bottom: 2rem;
@@ -69,9 +68,9 @@
                         width: 2.8125rem;
                         height: 2.8125rem;
                         border-radius: 1.875rem;
-                        background-color: var(--step-bg);
+                        background-color: var(--whyus-step-bg);
                         color: var(--step-color);
-                        border: 0.0625rem solid var(--step-border-color);
+                        border: 0.0625rem solid var(--whyus-step-border-color);
                         font-weight: 700;
                         font-size: 0.6937rem;
                         display: flex;
