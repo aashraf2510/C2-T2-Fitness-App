@@ -47,6 +47,10 @@
     --logout-btn-color: var(--orange-500);
     --hint-text: var(--gray-900-60);
     --cancel-hover: 41, 38, 36, 0.3;
+
+    /* Navbar */
+    --scroll-bg: 255, 255, 255, 0.95;
+    --sidebar-bg: var(--white);
 }
 .dark-mode {
     --body: var(--gray-950);
@@ -79,5 +83,9 @@
     --logout-btn-color: var(--orange-500);
     --hint-text: var(--gray-300);
     --cancel-hover: 248, 240, 235, 0.3;
+
+    /* Navbar */
+    --scroll-bg: 29, 28, 28, 0.95;
+    --sidebar-bg: var(--gray-950);
     
 }
