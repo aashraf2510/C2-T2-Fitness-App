@@ -27,18 +27,16 @@
           <div class="cursor-pointer" (click)="onLogin()">
             <app-main-button 
               [btnText]="'navbar.login' | translate"
-              [btnBg]="'#ff4100'"
-              [btnColor]="'white'"
-              [btnBorder]="'2px solid #ff4100'">
+              [customClass]="'orange-btn'"
+              [fontWeight]="'font-semibold'">
             </app-main-button>
           </div>
           
           <div class="cursor-pointer" (click)="onSignup()">
             <app-main-button 
               [btnText]="'navbar.signup' | translate"
-              [btnBg]="'transparent'"
-              [btnColor]="'#ff4100'"
-              [btnBorder]="'2px solid #ff4100'">
+              [customClass]="'trans-btn'"
+              [fontWeight]="'font-semibold'">
             </app-main-button>
           </div>
         </div>
@@ -108,18 +106,17 @@
           <div class="cursor-pointer" (click)="onLogin(); closeMobileMenu()">
             <app-main-button 
               [btnText]="'navbar.login' | translate"
-              [btnBg]="'#ff4100'"
-              [btnColor]="'white'"
-              [btnBorder]="'2px solid #ff4100'">
+              [customClass]="'orange-btn'"
+              [fontWeight]="'font-semibold'"
+              [btnText]="'about.button' |translate">
             </app-main-button>
           </div>
           
           <div class="cursor-pointer" (click)="onSignup(); closeMobileMenu()">
             <app-main-button 
               [btnText]="'navbar.signup' | translate"
-              [btnBg]="'transparent'"
-              [btnColor]="'#ff4100'"
-              [btnBorder]="'2px solid #ff4100'">
+              [customClass]="'trans-btn'"
+              [fontWeight]="'font-semibold'">
             </app-main-button>
           </div>
         </div>
