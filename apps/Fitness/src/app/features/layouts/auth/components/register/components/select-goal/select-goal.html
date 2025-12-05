@@ -1,0 +1,36 @@
+<div class="select-goal-container">
+    <div>
+        <app-progress-circle
+            [current]="5"
+            [total]="6"
+        ></app-progress-circle>
+    </div>
+
+    <div class="header">
+        <h1>{{ 'register.selectGoal.title' | translate }}</h1>
+        <p>{{ 'register.selectGoal.subtitle' | translate }}</p>
+    </div>
+
+    <div class="goal-selection">
+        <lib-fitness-form-radio
+            [config]="goalOptions"
+            [initialValue]="goal()"
+            (selectedItemChange)="onGoalChange($event)"
+        ></lib-fitness-form-radio>
+    </div>
+
+    <div class="button-group">
+        <button
+            class="back-btn"
+            (click)="back()"
+        >
+            {{ 'register.selectGoal.back' | translate }}
+        </button>
+        <button
+            class="next-btn"
+            (click)="submit()"
+        >
+            {{ 'register.selectGoal.next' | translate }}
+        </button>
+    </div>
+</div>

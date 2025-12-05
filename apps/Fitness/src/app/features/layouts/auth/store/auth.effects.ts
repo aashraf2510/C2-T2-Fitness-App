@@ -7,18 +7,20 @@ import {Store} from "@ngrx/store";
 import * as AuthActions from "./auth.actions";
 import {of} from "rxjs";
 import {catchError, map, switchMap, withLatestFrom} from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthEffects {
     private actions$ = inject(Actions);
     private authService = inject(AuthApiKpService);
     private store = inject(Store);
+    private readonly _router = inject(Router);
 
     register$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AuthActions.register),
             withLatestFrom(this.store.select(selectRegisterData)),
-            switchMap(([_, registerData]) =>
+            switchMap(([_, registerData,]) =>
                 this.authService.register(registerData as any).pipe(
                     map((response: SignUpResponse | ErrorResponse) => {
                         if ("error" in response) {

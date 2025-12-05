@@ -11,6 +11,7 @@ export class FitnessInputSlider implements OnInit {
     minWeight = input(60);
     maxWeight = input(300);
     unit = input.required<string>();
+    initialValue = input<number>();
 
     weightChange = output<number>();
 
@@ -19,7 +20,12 @@ export class FitnessInputSlider implements OnInit {
     startWeight = signal(0);
 
     ngOnInit(): void {
-        this.weight.set(this.minWeight() + (this.maxWeight() - this.minWeight()) / 2);
+        const initial = this.initialValue();
+        if (initial !== undefined) {
+            this.weight.set(initial);
+        } else {
+            this.weight.set(this.minWeight() + (this.maxWeight() - this.minWeight()) / 2);
+        }
     }
 
     // Get 8 numbers centered around current weight

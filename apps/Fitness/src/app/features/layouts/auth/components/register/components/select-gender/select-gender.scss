@@ -10,7 +10,6 @@
     text-align: center;
     padding: 2rem;
 
-
     .header {
         margin-top: 2rem;
         margin-bottom: 3rem;
@@ -76,13 +75,18 @@
         }
     }
 
-    .next-btn {
+    .button-group {
+        display: flex;
+        gap: 1rem;
         width: 100%;
         max-width: 400px;
+    }
+
+    .back-btn,
+    .next-btn {
+        flex: 1;
         padding: 1rem;
         border-radius: 2rem;
-        background-color: var(--orange-500);
-        color: var(--white);
         border: none;
         font-size: 1.2rem;
         font-weight: 700;
@@ -92,6 +96,24 @@
         &:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+        }
+    }
+
+    .back-btn {
+        background-color: transparent;
+        color: var(--white);
+        border: 2px solid var(--white);
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    .next-btn {
+        background-color: var(--orange-500);
+        color: var(--white);
+
+        &:disabled {
             background-color: var(--gray-500);
         }
     }

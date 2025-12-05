@@ -35,21 +35,47 @@ export class BasicData implements OnInit {
 
     ngOnInit(): void {
         this.frominit();
+        // Load saved data from store
+        this.store.select(selectRegisterData).subscribe((data) => {
+            if (data.firstName || data.email) {
+                this.basicDataForm.patchValue({
+                    firstName: data.firstName || "",
+                    lastName: data.lastName || "",
+                    email: data.email || "",
+                    password: data.password || "",
+                    rePassword: data.rePassword || "",
+                });
+            }
+        });
     }
 
     frominit() {
-        this.basicDataForm = this._formBuilder.group({
-            firstName: ["", [Validators.required, Validators.minLength(2)]],
-            lastName: ["", [Validators.required, Validators.minLength(2)]],
-            email: ["", [Validators.required, Validators.email]],
-            password: [
-                "",
-                [
-                    Validators.required,
-                    Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&\\)]).{8,}$"),
+        this.basicDataForm = this._formBuilder.group(
+            {
+                firstName: ["", [Validators.required, Validators.minLength(2)]],
+                lastName: ["", [Validators.required, Validators.minLength(2)]],
+                email: ["", [Validators.required, Validators.email]],
+                password: [
+                    "",
+                    [
+                        Validators.required,
+                        Validators.pattern(
+                            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&\\)]).{8,}$"
+                        ),
+                    ],
                 ],
-            ],
-        });
+                rePassword: ["", [Validators.required]],
+            },
+            {
+                validators: this.passwordMatchValidator,
+            }
+        );
+    }
+
+    passwordMatchValidator(group: FormGroup) {
+        const password = group.get("password")?.value;
+        const rePassword = group.get("rePassword")?.value;
+        return password === rePassword ? null : {passwordMismatch: true};
     }
 
     onSubmit() {

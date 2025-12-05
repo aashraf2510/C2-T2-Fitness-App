@@ -1,10 +1,11 @@
-import {Component, inject, signal} from "@angular/core";
+import {Component, inject, OnInit, signal} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
 import {Store} from "@ngrx/store";
 import {setStep, updateRegisterData} from "../../../../store/auth.actions";
 import {ProgressCircleComponent} from "apps/Fitness/src/app/shared/components/progress-circle/progress-circle";
-import { FitnessInputGender } from "@fitness-app/fitness-form";
+import {FitnessInputGender, Gender} from "@fitness-app/fitness-form";
+import {selectRegisterData} from "../../../../store/auth.selectors";
 
 @Component({
     selector: "app-select-gender",
@@ -13,16 +14,28 @@ import { FitnessInputGender } from "@fitness-app/fitness-form";
     templateUrl: "./select-gender.html",
     styleUrl: "./select-gender.scss",
 })
-export class SelectGender {
+export class SelectGender implements OnInit {
     private store = inject(Store);
-    selectedGender = signal<string>("male");
+    selectedGender = signal<Gender>(Gender.Male);
 
-    onGenderChange(gender: string) {
+    ngOnInit() {
+        this.store.select(selectRegisterData).subscribe((data) => {
+            if (data.gender) {
+                this.selectedGender.set(data.gender as Gender);
+            }
+        });
+    }
+
+    onGenderChange(gender: Gender) {
         this.selectedGender.set(gender);
     }
 
+    back() {
+        this.store.dispatch(setStep({step: 0}));
+    }
+
     submit() {
-            this.store.dispatch(updateRegisterData({data: {gender: this.selectedGender()}}));
-            this.store.dispatch(setStep({step: 2}));
+        this.store.dispatch(updateRegisterData({data: {gender: this.selectedGender()}}));
+        this.store.dispatch(setStep({step: 2}));
     }
 }

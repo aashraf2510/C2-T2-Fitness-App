@@ -42,6 +42,15 @@
                 id="password"
             ></lib-fitness-input>
 
+            <!-- Confirm Password -->
+            <lib-fitness-input
+                formControlName="rePassword"
+                [errorHandilgControl]="basicDataForm.get('rePassword')!"
+                [placeholder]="'register.confirmPassword' | translate"
+                type="password"
+                id="rePassword"
+            ></lib-fitness-input>
+
             <button
                 type="submit"
                 [class.invalid]="basicDataForm.invalid"

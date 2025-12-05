@@ -1,0 +1,122 @@
+import {Component, DestroyRef, inject, OnInit, signal} from "@angular/core";
+import {CommonModule} from "@angular/common";
+import {TranslatePipe, TranslateService} from "@ngx-translate/core";
+import {Store} from "@ngrx/store";
+import {
+    register,
+    registerSuccess,
+    registerFailure,
+    setStep,
+    updateRegisterData,
+} from "../../../../store/auth.actions";
+import {ProgressCircleComponent} from "apps/Fitness/src/app/shared/components/progress-circle/progress-circle";
+import {FitnessFormRadio, RadioItem} from "@fitness-app/fitness-form";
+import {selectRegisterData, selectAuthLoading} from "../../../../store/auth.selectors";
+import {MessageService} from "primeng/api";
+import {Actions, ofType} from "@ngrx/effects";
+import {Router} from "@angular/router";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {tap} from "rxjs/operators";
+
+@Component({
+    selector: "app-select-activity-level",
+    standalone: true,
+    imports: [CommonModule, TranslatePipe, ProgressCircleComponent, FitnessFormRadio],
+    templateUrl: "./select-activity-level.html",
+    styleUrl: "./select-activity-level.scss",
+})
+export class SelectActivityLevelComponent implements OnInit {
+    private readonly store = inject(Store);
+    private readonly messageService = inject(MessageService);
+    private readonly translate = inject(TranslateService);
+    private readonly actions$ = inject(Actions);
+    private readonly router = inject(Router);
+    private readonly destroyRef = inject(DestroyRef);
+
+    activityLevel = signal<string>("level1");
+    isLoading = this.store.selectSignal(selectAuthLoading);
+
+    activityOptions: RadioItem[] = [
+        {value: "level1", label: "register.selectActivity.options.rookie"},
+        {value: "level2", label: "register.selectActivity.options.beginner"},
+        {value: "level3", label: "register.selectActivity.options.intermediate"},
+        {value: "level4", label: "register.selectActivity.options.advance"},
+        {value: "level5", label: "register.selectActivity.options.trueBeast"},
+    ];
+
+    ngOnInit(): void {
+        this.loadSavedActivityLevel();
+        this.listenToRegistrationSuccess();
+        this.listenToRegistrationFailure();
+    }
+
+    onActivityChange(level: string): void {
+        this.activityLevel.set(level);
+    }
+
+    back(): void {
+        this.store.dispatch(setStep({step: 5}));
+    }
+
+    submit(): void {
+        this.store.dispatch(updateRegisterData({data: {activityLevel: this.activityLevel()}}));
+        this.store.dispatch(register());
+    }
+
+    private loadSavedActivityLevel(): void {
+        this.store
+            .select(selectRegisterData)
+            .pipe(
+                tap((data) => {
+                    if (data.activityLevel) {
+                        this.activityLevel.set(data.activityLevel);
+                    }
+                }),
+                takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe();
+    }
+
+    private listenToRegistrationSuccess(): void {
+        this.actions$
+            .pipe(
+                ofType(registerSuccess),
+                tap(() => {
+                    this.showSuccessToast();
+                    this.navigateToLogin();
+                }),
+                takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe();
+    }
+
+    private listenToRegistrationFailure(): void {
+        this.actions$
+            .pipe(
+                ofType(registerFailure),
+                tap((action) => this.showErrorToast(action.error)),
+                takeUntilDestroyed(this.destroyRef)
+            )
+            .subscribe();
+    }
+
+    private showSuccessToast(): void {
+        this.messageService.add({
+            severity: "success",
+            summary: this.translate.instant("register.success.title"),
+            detail: this.translate.instant("register.success.message"),
+        });
+    }
+
+    private showErrorToast(error?: string): void {
+        this.messageService.add({
+            severity: "error",
+            summary: this.translate.instant("register.error.title"),
+            detail: error || this.translate.instant("register.error.message"),
+        });
+    }
+
+    private navigateToLogin(): void {
+        this.router.navigate(["/auth/login"]);
+    }
+}

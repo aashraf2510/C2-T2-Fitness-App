@@ -27,24 +27,69 @@
         "signIn": "Login",
         "forgotPassword": "Forget Password ?",
         "or": "Or",
+        "loading": "Loading...",
+        "success": {
+            "title": "Success!",
+            "message": "Registration successful! Redirecting to login..."
+        },
+        "error": {
+            "title": "Error",
+            "message": "Registration failed. Please try again."
+        },
         "selectGender": {
             "title": "TELL US ABOUT YOURSELF!",
             "subtitle": "We Need To Know Your Gender",
             "male": "Male",
             "female": "Female",
-            "next": "Next"
+            "next": "Next",
+            "back": "Back"
         },
         "selectOld": {
             "title": "How Old Are You ?",
             "subtitle": "This Helps Us Create Your Personalized Plan",
             "unit": "Year",
-            "next": "Next"
+            "next": "Next",
+            "back": "Back"
         },
         "selectWeight": {
             "title": "What Is Your Weight ?",
             "subtitle": "This Helps Us Create Your Personalized Plan",
             "unit": "Kg",
-            "next": "Done"
+            "next": "Next",
+            "back": "Back"
+        },
+        "selectHeight": {
+            "title": "What Is Your Height ?",
+            "subtitle": "This Helps Us Create Your Personalized Plan",
+            "unit": "Cm",
+            "next": "Next",
+            "back": "Back"
+        },
+        "selectGoal": {
+            "title": "What Is Your Goal ?",
+            "subtitle": "This Helps Us Create Your Personalized Plan",
+            "next": "Next",
+            "back": "Back",
+            "options": {
+                "gainWeight": "Gain Weight",
+                "loseWeight": "Lose Weight",
+                "getFitter": "Get Fitter",
+                "gainFlexibility": "Gain More Flexible",
+                "learnBasics": "Learn The Basic"
+            }
+        },
+        "selectActivity": {
+            "title": "Your Regular Physical Activity Level ?",
+            "subtitle": "This Helps Us Create Your Personalized Plan",
+            "next": "Next",
+            "back": "Back",
+            "options": {
+                "rookie": "Rookie",
+                "beginner": "Beginner",
+                "intermediate": "Intermediate",
+                "advance": "Advance",
+                "trueBeast": "True Beast"
+            }
         }
     },
     "forgetpass": {

@@ -21,6 +21,9 @@ import {updateRegisterData, register} from "../../store/auth.actions";
 import {selectAuthLoading, selectAuthError, selectStep} from "../../store/auth.selectors";
 import {SelectOldComponent} from "./components/select-old/select-old";
 import {SelectWeightComponent} from "./components/select-weight/select-weight";
+import {SelectHeightComponent} from "./components/select-height/select-height";
+import {SelectGoalComponent} from "./components/select-goal/select-goal";
+import {SelectActivityLevelComponent} from "./components/select-activity-level/select-activity-level";
 
 @Component({
     selector: "app-register",
@@ -32,6 +35,9 @@ import {SelectWeightComponent} from "./components/select-weight/select-weight";
         RouterModule,
         SelectOldComponent,
         SelectWeightComponent,
+        SelectHeightComponent,
+        SelectGoalComponent,
+        SelectActivityLevelComponent,
     ],
     templateUrl: "./register.html",
     styleUrl: "./register.scss",

@@ -8,34 +8,34 @@ import {FitnessInputSlider} from "@fitness-app/fitness-form";
 import {selectRegisterData} from "../../../../store/auth.selectors";
 
 @Component({
-    selector: "app-select-weight",
+    selector: "app-select-height",
     standalone: true,
     imports: [CommonModule, TranslatePipe, ProgressCircleComponent, FitnessInputSlider],
-    templateUrl: "./select-weight.html",
-    styleUrl: "./select-weight.scss",
+    templateUrl: "./select-height.html",
+    styleUrl: "./select-height.scss",
 })
-export class SelectWeightComponent implements OnInit {
+export class SelectHeightComponent implements OnInit {
     private store = inject(Store);
-    weight = signal<number>(90);
+    height = signal<number>(170);
 
     ngOnInit() {
         this.store.select(selectRegisterData).subscribe((data) => {
-            if (data.weight) {
-                this.weight.set(data.weight);
+            if (data.height) {
+                this.height.set(data.height);
             }
         });
     }
 
-    onWeightChange(weight: number) {
-        this.weight.set(weight);
+    onHeightChange(height: number) {
+        this.height.set(height);
     }
 
     back() {
-        this.store.dispatch(setStep({step: 2}));
+        this.store.dispatch(setStep({step: 3}));
     }
 
     submit() {
-        this.store.dispatch(updateRegisterData({data: {weight: this.weight()}}));
-        this.store.dispatch(setStep({step: 4}));
+        this.store.dispatch(updateRegisterData({data: {height: this.height()}}));
+        this.store.dispatch(setStep({step: 5}));
     }
 }

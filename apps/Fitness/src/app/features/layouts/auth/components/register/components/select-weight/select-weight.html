@@ -16,14 +16,23 @@
             [minWeight]="40"
             [maxWeight]="200"
             [unit]="'register.selectWeight.unit' | translate"
+            [initialValue]="weight()"
             (weightChange)="onWeightChange($event)"
         ></lib-fitness-input-slider>
     </div>
 
-    <button
-        class="next-btn"
-        (click)="submit()"
-    >
-        {{ 'register.selectWeight.next' | translate }}
-    </button>
+    <div class="button-group">
+        <button
+            class="back-btn"
+            (click)="back()"
+        >
+            {{ 'register.selectWeight.back' | translate }}
+        </button>
+        <button
+            class="next-btn"
+            (click)="submit()"
+        >
+            {{ 'register.selectWeight.next' | translate }}
+        </button>
+    </div>
 </div>
