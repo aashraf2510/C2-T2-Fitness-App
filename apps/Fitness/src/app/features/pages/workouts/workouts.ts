@@ -1,5 +1,6 @@
 import {Component, DestroyRef, inject, input, OnInit, signal, WritableSignal} from "@angular/core";
 import {MainCard} from "./../../../shared/components/ui/main-card/main-card";
+import {TranslatePipe} from "@ngx-translate/core";
 //primeNg
 import {MessageService} from "primeng/api";
 import {ButtonModule} from "primeng/button";
@@ -22,6 +23,7 @@ import {Header} from "./../../../shared/components/ui/header/header";
 import {NavTabs} from "./../../../shared/components/ui/navTabs/navTabs";
 import {Title} from "./../../../shared/components/ui/title/title";
 import {navItem} from "./../../../shared/models/navItem";
+import {MainCard} from "./../../../shared/components/ui/main-card/main-card";
 
 @Component({
     selector: "app-workouts",
@@ -35,6 +37,7 @@ import {navItem} from "./../../../shared/models/navItem";
         Carousel,
         Toast,
         NavTabs,
+        TranslatePipe,
     ],
     templateUrl: "./workouts.html",
     styleUrl: "./workouts.scss",
