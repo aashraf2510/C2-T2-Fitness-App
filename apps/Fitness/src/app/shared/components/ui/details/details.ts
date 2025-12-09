@@ -9,9 +9,14 @@ import {Exercise} from "../../../models/exercises";
 import {Meal} from "../../../models/meals";
 import {MealService} from "../../../services/meals/meals";
 
+import {MediaContainer} from "./components/media-container/media-container";
+import {WorkoutLegends} from "./components/workout-legends/workout-legends";
+import {Ingradients} from "./components/ingradients/ingradients";
+import {Recomendation} from "./components/recomendation/recomendation";
+
 @Component({
     selector: "app-details",
-    imports: [Panel, NavTabs],
+    imports: [Panel, MediaContainer, WorkoutLegends, Ingradients, Recomendation, NavTabs],
     templateUrl: "./details.html",
     styleUrl: "./details.scss",
 })

@@ -38,6 +38,7 @@ export class Meals implements OnInit {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: (res) => {
+                    this.mealService.mealCategories.set(res.categories);
                     this.mealCats.set(res.categories);
                 },
             });
