@@ -42,11 +42,9 @@ export class Details implements OnInit {
 
     getSelectedExercise() {
         this.selectedExercise.set(this._muscleService.getSelectedExercise());
-        console.log(this.selectedExercise());
     }
     getSelectedMeal() {
         this.selectedMeal.set(this._mealService.getSelectedMeal());
-        console.log(this.selectedMeal());
     }
 
     ngOnInit(): void {
