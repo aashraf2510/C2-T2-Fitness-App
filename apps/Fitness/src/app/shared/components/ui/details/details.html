@@ -3,7 +3,15 @@
     [style.backgroundImage]="'url(./images/details/bg-2.avif)'"
 >
     <div class="blur-overlay"></div>
+    <img
+        class="workouts-img"
+        src="./images/workouts/WOrkouts.png"
+        alt="workouts"
+    />
     <div class="container">
+        @if (cat() === 'classes') {
+        <app-nav-tabs [navItems]="workout_muscles()" />
+        }
         <div class="content grid">
             <app-panel
                 [panelID]="id()"
