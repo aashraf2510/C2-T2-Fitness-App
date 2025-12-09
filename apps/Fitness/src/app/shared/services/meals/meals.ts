@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
-import {inject, Injectable, signal} from "@angular/core";
+import {inject, Injectable, signal, WritableSignal} from "@angular/core";
 import {Observable, retry, shareReplay} from "rxjs";
-import {Meal, mealCatRes, MealsByCategoryResponse} from "../../models/meals";
+import {Category, Meal, mealCatRes, MealsByCategoryResponse} from "../../models/meals";
 import {environment} from "@fitness-app/environment/baseUrl.dev";
 import {EndPoint} from "../../../core/enums/endpoint";
 
@@ -12,6 +12,7 @@ export class MealService {
     private http = inject(HttpClient);
     private selectedMeal = signal<Meal | null>(null);
 
+    mealCategories: WritableSignal<Category[]> = signal([]);
     private categoriesCache$?: Observable<mealCatRes>;
 
     private mealsByCategoryCache = new Map<string, Observable<MealsByCategoryResponse>>();
