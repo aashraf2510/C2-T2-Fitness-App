@@ -10,3 +10,5 @@ export const selectAuthLoading = createSelector(selectAuthState, (state) => stat
 export const selectAuthError = createSelector(selectAuthState, (state) => state.error);
 
 export const selectStep = createSelector(selectAuthState, (state) => state.step);
+
+export const selectIsStepValid = createSelector(selectAuthState, (state) => state.isStepValid);

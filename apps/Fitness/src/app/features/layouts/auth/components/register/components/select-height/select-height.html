@@ -1,11 +1,4 @@
 <div class="select-height-container">
-    <div>
-        <app-progress-circle
-            [current]="4"
-            [total]="6"
-        ></app-progress-circle>
-    </div>
-
     <div class="header">
         <h1>{{ 'register.selectHeight.title' | translate }}</h1>
         <p>{{ 'register.selectHeight.subtitle' | translate }}</p>
@@ -19,20 +12,5 @@
             [initialValue]="height()"
             (weightChange)="onHeightChange($event)"
         ></lib-fitness-input-slider>
-    </div>
-
-    <div class="button-group">
-        <button
-            class="back-btn"
-            (click)="back()"
-        >
-            {{ 'register.selectHeight.back' | translate }}
-        </button>
-        <button
-            class="next-btn"
-            (click)="submit()"
-        >
-            {{ 'register.selectHeight.next' | translate }}
-        </button>
     </div>
 </div>

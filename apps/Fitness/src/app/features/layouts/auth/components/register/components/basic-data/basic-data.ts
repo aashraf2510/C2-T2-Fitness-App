@@ -11,9 +11,11 @@ import {RouteBuilderService} from "apps/Fitness/src/app/core/services/router/rou
 import {CLIENT_ROUTES} from "apps/Fitness/src/app/core/constants/client-routes";
 
 import {Store} from "@ngrx/store";
-import {setStep, updateRegisterData} from "../../../../store/auth.actions";
+import {nextStep, updateRegisterData} from "../../../../store/auth.actions";
 
 import {selectRegisterData} from "../../../../store/auth.selectors";
+import {PASSWORD_PATTERN} from "apps/Fitness/src/app/core/constants/validation.constants";
+import {passwordMatchValidator} from "apps/Fitness/src/app/core/utils/validators.util";
 
 @Component({
     selector: "app-basic-data",
@@ -55,33 +57,19 @@ export class BasicData implements OnInit {
                 firstName: ["", [Validators.required, Validators.minLength(2)]],
                 lastName: ["", [Validators.required, Validators.minLength(2)]],
                 email: ["", [Validators.required, Validators.email]],
-                password: [
-                    "",
-                    [
-                        Validators.required,
-                        Validators.pattern(
-                            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&\\)]).{8,}$"
-                        ),
-                    ],
-                ],
+                password: ["", [Validators.required, Validators.pattern(PASSWORD_PATTERN)]],
                 rePassword: ["", [Validators.required]],
             },
             {
-                validators: this.passwordMatchValidator,
+                validators: passwordMatchValidator("password", "rePassword"),
             }
         );
-    }
-
-    passwordMatchValidator(group: FormGroup) {
-        const password = group.get("password")?.value;
-        const rePassword = group.get("rePassword")?.value;
-        return password === rePassword ? null : {passwordMismatch: true};
     }
 
     onSubmit() {
         if (this.basicDataForm.valid) {
             this.store.dispatch(updateRegisterData({data: this.basicDataForm.value}));
-            this.store.dispatch(setStep({step: 1}));
+            this.store.dispatch(nextStep());
         }
     }
 }

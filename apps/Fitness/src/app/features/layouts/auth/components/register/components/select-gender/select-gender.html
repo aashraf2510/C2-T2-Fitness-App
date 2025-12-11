@@ -1,11 +1,4 @@
 <div class="select-gender-container">
-    <div>
-        <app-progress-circle
-            [current]="1"
-            [total]="6"
-        ></app-progress-circle>
-    </div>
-
     <div class="header">
         <h1>{{ 'register.selectGender.title' | translate }}</h1>
         <p>{{ 'register.selectGender.subtitle' | translate }}</p>
@@ -16,21 +9,5 @@
             [initialGender]="selectedGender()"
             (genderChange)="onGenderChange($event)"
         ></lib-fitness-input-gender>
-    </div>
-
-    <div class="button-group">
-        <button
-            class="back-btn"
-            (click)="back()"
-        >
-            {{ 'register.selectGender.back' | translate }}
-        </button>
-        <button
-            class="next-btn"
-            [disabled]="!selectedGender()"
-            (click)="submit()"
-        >
-            {{ 'register.selectGender.next' | translate }}
-        </button>
     </div>
 </div>

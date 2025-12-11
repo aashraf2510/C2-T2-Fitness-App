@@ -2,15 +2,14 @@ import {Component, inject, OnInit, signal} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
 import {Store} from "@ngrx/store";
-import {setStep, updateRegisterData} from "../../../../store/auth.actions";
-import {ProgressCircleComponent} from "apps/Fitness/src/app/shared/components/progress-circle/progress-circle";
+import {nextStep, prevStep, updateRegisterData} from "../../../../store/auth.actions";
 import {FitnessFormRadio, RadioItem} from "@fitness-app/fitness-form";
 import {selectRegisterData} from "../../../../store/auth.selectors";
 
 @Component({
     selector: "app-select-goal",
     standalone: true,
-    imports: [CommonModule, TranslatePipe, ProgressCircleComponent, FitnessFormRadio],
+    imports: [CommonModule, TranslatePipe, FitnessFormRadio],
     templateUrl: "./select-goal.html",
     styleUrl: "./select-goal.scss",
 })
@@ -39,11 +38,11 @@ export class SelectGoalComponent implements OnInit {
     }
 
     back() {
-        this.store.dispatch(setStep({step: 4}));
+        this.store.dispatch(prevStep());
     }
 
     submit() {
         this.store.dispatch(updateRegisterData({data: {goal: this.goal()}}));
-        this.store.dispatch(setStep({step: 6}));
+        this.store.dispatch(nextStep());
     }
 }

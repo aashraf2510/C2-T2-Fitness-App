@@ -3,13 +3,12 @@ import {CommonModule} from "@angular/common";
 import {TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {Store} from "@ngrx/store";
 import {
-    register,
+    submitRegistration,
     registerSuccess,
     registerFailure,
-    setStep,
+    prevStep,
     updateRegisterData,
 } from "../../../../store/auth.actions";
-import {ProgressCircleComponent} from "apps/Fitness/src/app/shared/components/progress-circle/progress-circle";
 import {FitnessFormRadio, RadioItem} from "@fitness-app/fitness-form";
 import {selectRegisterData, selectAuthLoading} from "../../../../store/auth.selectors";
 import {MessageService} from "primeng/api";
@@ -23,7 +22,7 @@ import {RouteBuilderService} from "apps/Fitness/src/app/core/services/router/rou
 @Component({
     selector: "app-select-activity-level",
     standalone: true,
-    imports: [CommonModule, TranslatePipe, ProgressCircleComponent, FitnessFormRadio],
+    imports: [CommonModule, TranslatePipe, FitnessFormRadio],
     templateUrl: "./select-activity-level.html",
     styleUrl: "./select-activity-level.scss",
 })
@@ -58,12 +57,12 @@ export class SelectActivityLevelComponent implements OnInit {
     }
 
     back(): void {
-        this.store.dispatch(setStep({step: 5}));
+        this.store.dispatch(prevStep());
     }
 
     submit(): void {
         this.store.dispatch(updateRegisterData({data: {activityLevel: this.activityLevel()}}));
-        this.store.dispatch(register());
+        this.store.dispatch(submitRegistration());
     }
 
     private loadSavedActivityLevel(): void {

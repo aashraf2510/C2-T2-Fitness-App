@@ -2,15 +2,14 @@ import {Component, inject, OnInit, signal} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {TranslatePipe} from "@ngx-translate/core";
 import {Store} from "@ngrx/store";
-import {setStep, updateRegisterData} from "../../../../store/auth.actions";
-import {ProgressCircleComponent} from "apps/Fitness/src/app/shared/components/progress-circle/progress-circle";
+import {nextStep, prevStep, updateRegisterData} from "../../../../store/auth.actions";
 import {FitnessInputSlider} from "@fitness-app/fitness-form";
 import {selectRegisterData} from "../../../../store/auth.selectors";
 
 @Component({
     selector: "app-select-weight",
     standalone: true,
-    imports: [CommonModule, TranslatePipe, ProgressCircleComponent, FitnessInputSlider],
+    imports: [CommonModule, TranslatePipe, FitnessInputSlider],
     templateUrl: "./select-weight.html",
     styleUrl: "./select-weight.scss",
 })
@@ -31,11 +30,11 @@ export class SelectWeightComponent implements OnInit {
     }
 
     back() {
-        this.store.dispatch(setStep({step: 2}));
+        this.store.dispatch(prevStep());
     }
 
     submit() {
         this.store.dispatch(updateRegisterData({data: {weight: this.weight()}}));
-        this.store.dispatch(setStep({step: 4}));
+        this.store.dispatch(nextStep());
     }
 }

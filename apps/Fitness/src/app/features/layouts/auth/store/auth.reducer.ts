@@ -21,6 +21,7 @@ export interface AuthState {
     step: number;
     error: string | null;
     token: string | null;
+    isStepValid: boolean;
 }
 
 export const initialState: AuthState = {
@@ -29,6 +30,7 @@ export const initialState: AuthState = {
     step: 0,
     error: null,
     token: null,
+    isStepValid: false,
 };
 
 export const authReducer = createReducer(
@@ -37,7 +39,7 @@ export const authReducer = createReducer(
         ...state,
         registerData: {...state.registerData, ...data},
     })),
-    on(AuthActions.register, (state) => ({
+    on(AuthActions.submitRegistration, (state) => ({
         ...state,
         isLoading: true,
         error: null,
@@ -56,5 +58,20 @@ export const authReducer = createReducer(
     on(AuthActions.setStep, (state, {step}) => ({
         ...state,
         step,
+        isStepValid: false,
+    })),
+    on(AuthActions.nextStep, (state) => ({
+        ...state,
+        step: state.step + 1,
+        isStepValid: false,
+    })),
+    on(AuthActions.prevStep, (state) => ({
+        ...state,
+        step: state.step - 1,
+        isStepValid: false,
+    })),
+    on(AuthActions.setStepValidity, (state, {isValid}) => ({
+        ...state,
+        isStepValid: isValid,
     }))
 );

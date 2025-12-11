@@ -5,7 +5,6 @@
         <p class="form-head">{{ "register.title" | translate }}</p>
         <form
             [formGroup]="basicDataForm"
-            (ngSubmit)="onSubmit()"
             class="flex flex-column gap-3"
         >
             <!-- firstName -->
@@ -50,14 +49,6 @@
                 type="password"
                 id="rePassword"
             ></lib-fitness-input>
-
-            <button
-                type="submit"
-                [class.invalid]="basicDataForm.invalid"
-                class="auth-btn"
-            >
-                {{ 'register.submit' | translate }}
-            </button>
         </form>
         <p class="register">
             {{ "register.haveAccount" | translate }}

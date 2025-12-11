@@ -1,11 +1,4 @@
 <div class="select-activity-container">
-    <div>
-        <app-progress-circle
-            [current]="6"
-            [total]="6"
-        ></app-progress-circle>
-    </div>
-
     <div class="header">
         <h1>{{ 'register.selectActivity.title' | translate }}</h1>
         <p>{{ 'register.selectActivity.subtitle' | translate }}</p>
@@ -17,25 +10,5 @@
             [initialValue]="activityLevel()"
             (selectedItemChange)="onActivityChange($event)"
         ></lib-fitness-form-radio>
-    </div>
-
-    <div class="button-group">
-        <button
-            class="back-btn"
-            [disabled]="isLoading()"
-            (click)="back()"
-        >
-            {{ 'register.selectActivity.back' | translate }}
-        </button>
-        <button
-            class="next-btn"
-            [disabled]="isLoading()"
-            [class.loading]="isLoading()"
-            (click)="submit()"
-        >
-            @if (isLoading()) {
-            <span>{{ 'register.loading' | translate }}</span>
-            } @else { {{ 'register.selectActivity.next' | translate }} }
-        </button>
     </div>
 </div>
