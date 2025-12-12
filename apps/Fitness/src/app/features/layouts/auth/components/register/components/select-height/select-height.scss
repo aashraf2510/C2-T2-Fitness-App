@@ -1,20 +1,44 @@
-.register-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 35rem;
-  gap: 1rem;
-}
+.select-height-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    color: var(--white);
+    font-family: 'Baloo Thambi 2', cursive;
+    text-align: center;
 
+    .header {
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0;
+        }
+    }
+
+    .height-selection {
+        width: 100%;
+        margin-bottom: 4rem;
+        display: flex;
+        justify-content: center;
+    }
 
     .button-group {
         display: flex;
-        justify-content: space-between;
         gap: 1rem;
         width: 100%;
-
+        max-width: 400px;
     }
 
     .back-btn,
@@ -52,3 +76,4 @@
             background-color: var(--gray-500);
         }
     }
+}
