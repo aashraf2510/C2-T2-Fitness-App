@@ -7,71 +7,123 @@
         class="blur-overlay"
         aria-hidden="true"
     ></div>
+
     <section class="container">
         <h2
             id="panel-heading"
             class="sr-only"
         >
-            {{ panelType() === 'classes' ? ('classes.sr-only.heading' |translate) :
-            ('meals.sr-only.heading' |translate) }}
+            {{ panelConfig().heading | translate }}
         </h2>
 
         <section
             class="nav-tabs"
             role="tablist"
-            aria-label="{{ panelType() === 'classes' ? ('classes.sr-only.section' |translate) : ('meals.sr-only.section' |translate) }}"
+            aria-label="{{ panelConfig().section | translate }}"
         >
-            @if (panelType() === 'classes' && difficultyLevels()) {
             <app-nav-tabs
-                [navItems]="difficultyLevels()"
-                (navItemClick)="getExercises($event)"
+                [navItems]="getNavItems()"
+                (navItemClick)="getNavItemsResponse($event)"
                 role="presentation"
             />
-            } @else if (panelType() === 'meals' && mealsCategories()) {
-            <app-nav-tabs
-                [navItems]="mealsCategories()"
-                (navItemClick)="getMeals($event)"
-                role="presentation"
-            />
-            }
         </section>
 
+        @if (loading()) {
+        <ul class="list list-none p-0 pt-1 m-0">
+            @for (_ of [1,2,3,4]; track $index) {
+            <li class="item flex align-items-center skeleton-item">
+                <div
+                    class="image"
+                    aria-hidden="true"
+                >
+                    <p-skeleton
+                        width="4rem"
+                        height="4rem"
+                        borderRadius="8px"
+                    ></p-skeleton>
+                </div>
+
+                <div
+                    class="content flex align-items-center ml-3"
+                    style="width: 100%"
+                >
+                    <div
+                        class="text"
+                        style="width: 100%"
+                    >
+                        <p-skeleton
+                            width="60%"
+                            height="1rem"
+                        ></p-skeleton>
+                        <p-skeleton
+                            width="40%"
+                            height="1rem"
+                            class="mt-2"
+                        ></p-skeleton>
+                        <p-skeleton
+                            width="30%"
+                            height="1rem"
+                            class="mt-2"
+                        ></p-skeleton>
+                    </div>
+
+                    <div class="icon-wrapper ml-auto">
+                        <p-skeleton
+                            shape="circle"
+                            size="1.5rem"
+                        ></p-skeleton>
+                    </div>
+                </div>
+            </li>
+            }
+        </ul>
+        }@else {
         <ul
             class="list list-none p-0 pt-1 m-0"
             role="list"
-            aria-label="{{ panelType() === 'classes' ? ('classes.sr-only.ul' |translate) : ('meals.sr-only.ul' |translate) }}"
+            aria-label="{{ panelConfig().listLabel | translate }}"
         >
-            @if (panelType() === 'classes') { @for (item of exercesList(); track $index; let isLast
-            = $last) {
+            @for (item of panelConfig().list; track $index) {
             <li
-                [class.border-none]="$index === exercesList()!.length - 1"
                 class="item flex align-items-center"
-                (click)="selectExercise(item)"
-                (keydown)="selectExercise(item)"
-                role="listitem"
+                [class.border-none]="$index === panelConfig().list!.length - 1"
+                (click)="panelConfig().onItemSelect(item)"
+                (keydown)="panelConfig().onItemSelect(item)"
                 tabindex="0"
-                aria-label="{{ item.exercise }}, {{ item.primary_equipment }}"
+                role="listitem"
+                aria-label="{{ panelConfig().getItemLabel(item) }}"
             >
                 <div
                     class="image"
                     aria-hidden="true"
                 >
                     <img
-                        ngSrc="./images/details/exercise.avif"
+                        [ngSrc]="panelType() === 'classes'
+                                ? './images/details/exercise.avif'
+                                : $any(item).strMealThumb"
                         width="500"
                         height="750"
-                        alt="{{ item.exercise }}"
+                        alt="{{ panelType() === 'classes' ? $any(item).exercise : $any(item).strMeal }}"
                         role="presentation"
                     />
                 </div>
+
                 <div class="content flex align-items-center">
                     <div class="text">
                         <h3 class="ul-heading">
-                            {{ item.exercise.split(' ').splice(0,4).join(' ') }}
+                            {{ panelType() === 'classes' ? $any(item).exercise.split('
+                            ').slice(0,4).join(' ') : $any(item).strMeal }}
                         </h3>
-                        <p class="ul-paragraph">{{ item.grip }}</p>
-                        <p class="ul-paragraph">{{ item.posture }}</p>
+
+                        <p class="ul-paragraph">
+                            {{ panelType() === 'classes' ? $any(item).grip : $any(item).strMeal }}
+                        </p>
+
+                        @if (panelType() === 'classes') {
+                        <p class="ul-paragraph">{{ $any(item).posture }}</p>
+                        }
                     </div>
+
                     <div class="icon-wrapper">
                         <div
                             class="icon"
@@ -82,79 +134,20 @@
                                 style="color: var(--panel-text-color)"
                             ></i>
                         </div>
-                        <span class="sr-only"
-                            >{{ ('classes.sr-only.view' |translate) + ' ' + item.exercise }}</span
-                        >
+
+                        <span class="sr-only">
+                            {{ (panelType() + '.sr-only.view') | translate }} {{ panelType() ===
+                            'classes' ? $any(item).exercise : $any(item).strMeal }}
+                        </span>
                     </div>
                 </div>
             </li>
             } @empty {
-            <li
-                class="no-items"
-                role="listitem"
-            >
-                <p class="empty">{{'classes.empty' |translate}}</p>
+            <li class="no-items">
+                <p class="empty">{{ panelConfig().emptyLabel | translate }}</p>
             </li>
-            } }@else if (panelType() === 'meals') { @for (item of mealsList(); track $index; let
-            isLast = $last) {
-            <li
-                [class.border-none]="$index === mealsList()!.length - 1"
-                class="item flex align-items-center"
-                (click)="selectMeal(item)"
-                (keydown)="selectMeal(item)"
-                role="listitem"
-                tabindex="0"
-                aria-label="{{ item.strMeal }}"
-            >
-                <div
-                    class="image"
-                    aria-hidden="true"
-                >
-                    <img
-                        [src]="item.strMealThumb"
-                        alt="{{ item.strMeal }}"
-                        role="presentation"
-                    />
-                </div>
-                <div class="content flex align-items-center">
-                    <div class="text">
-                        <h3 class="m-0">{{ item.strMeal }}</h3>
-                        <p>{{ item.strMeal }}</p>
-                    </div>
-                    <div class="icon-wrapper">
-                        <div
-                            class="icon"
-                            aria-hidden="true"
-                        >
-                            <i
-                                class="pi pi-caret-right"
-                                style="color: var(--panel-text-color)"
-                            ></i>
-                        </div>
-                        <span class="sr-only"
-                            >{{ ('meals.sr-only.view' |translate) + ' ' + item.strMeal }}</span
-                        >
-                    </div>
-                </div>
-            </li>
-            } @empty {
-            <li
-                class="no-items"
-                role="listitem"
-            >
-                <p class="empty">{{'meals.empty' |translate}}</p>
-            </li>
-            } }
+            }
         </ul>
+        }
     </section>
 </section>
-
-<!-- Status messages for screen readers -->
-<!-- <div
-            aria-live="polite"
-            aria-atomic="true"
-            class="sr-only"
-        >
-            @if (panelType() === 'classes') { {{ exercesList()?.length || 0 }} exercises loaded }
-            @else if (panelType() === 'meals') { {{ mealsList()?.length || 0 }} meals loaded }
-        </div> -->
