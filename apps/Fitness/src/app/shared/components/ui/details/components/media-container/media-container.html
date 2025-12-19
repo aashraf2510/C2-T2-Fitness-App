@@ -2,24 +2,26 @@
     id="media"
     class="relative"
 >
-    @if (type() === 'class') {
-    <img
-        ngSrc="./images/details/exercise.avif"
-        width="500"
-        height="536"
-        class="w-full"
-        alt="Exercise demonstration"
-        priority
-    />
-    } @if (type() === 'meal' && mealDetails()!.strMealThumb) {
-    <img
-        [src]="mealDetails()!.strMealThumb"
-        width="500"
-        height="536"
-        class="w-full"
-        [alt]="mealDetails()!.strMeal"
-    />
-    }
+    <div class="image-wrapper">
+        @if (type() === 'class') {
+        <img
+            ngSrc="./images/details/exercise.avif"
+            fill
+            class="w-full"
+            alt="Exercise demonstration"
+            priority
+            decoding="async"
+        />
+        } @if (type() === 'meal' && mealDetails()!.strMealThumb) {
+        <img
+            [ngSrc]="mealDetails()!.strMealThumb"
+            fill
+            class="w-full"
+            [alt]="mealDetails()!.strMeal"
+            decoding="async"
+        />
+        }
+    </div>
 
     <div
         tabindex="0"
@@ -33,40 +35,29 @@
         </div>
         <h3 class="media-title text-center m-0">{{selectedExercise()?.exercise}}</h3>
 
-        <p class="media-desc w-9">
+        <p class="media-desc trunc-text">
             Lorem ipsum dolor sit amet consectetur. Tempus volutpat ut nisi morbi. Lorem ipsum dolor
             sit amet consectetur. Tempus volutpat ut nisi morbi. Lorem ipsum dolor sit amet
             consectetur. Tempus volutpat ut nisi morbi.
         </p>
         <div class="media-summary capitalize flex justify-content-between items-center">
+            @for (item of classesSummary(); track $index) {
             <div class="summary-item flex flex-column align-items-center gap-1">
-                <span class="item-number">30 Min</span>
+                <span class="item-number">{{item.itemNumber}}</span>
             </div>
-            <div class="summary-item flex align-items-center flex-column gap-1">
-                <span class="item-number">130 Cal</span>
-            </div>
+            }
         </div>
         }@else {
         <h3 class="media-title text-center m-0">{{mealDetails()!.strMeal}}</h3>
 
-        <p class="media-desc instructions w-9">{{mealDetails()!.strInstructions}}</p>
+        <p class="media-desc instructions trunc-text">{{mealDetails()!.strInstructions}}</p>
         <div class="media-summary capitalize flex justify-content-between items-center">
+            @for (item of mealsSummary(); track $index) {
             <div class="summary-item flex flex-column align-items-center gap-1">
-                <span class="item-number">100 K</span>
-                <span class="item-text">Energy</span>
+                <span class="item-number">{{item.itemNumber}}</span>
+                <span class="item-text">{{item.itemText}}</span>
             </div>
-            <div class="summary-item flex align-items-center flex-column gap-1">
-                <span class="item-number">15 G</span>
-                <span class="item-text">Protein</span>
-            </div>
-            <div class="summary-item flex align-items-center flex-column gap-1">
-                <span class="item-number">58 G</span>
-                <span class="item-text">Carbs</span>
-            </div>
-            <div class="summary-item flex align-items-center flex-column gap-1">
-                <span class="item-number">20 G</span>
-                <span class="item-text">Fat</span>
-            </div>
+            }
         </div>
         }
     </div>

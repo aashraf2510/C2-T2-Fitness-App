@@ -9,9 +9,16 @@ import {
     signal,
     WritableSignal,
 } from "@angular/core";
+// Interfaces
 import {Exercise} from "../../../../../models/exercises";
 import {Meal, MealDetails} from "../../../../../models/meals";
+// Services
 import {MealService} from "../../../../../services/meals/meals";
+
+interface Summary {
+    itemNumber: string;
+    itemText?: string;
+}
 
 @Component({
     selector: "app-media-container",
@@ -28,6 +35,16 @@ export class MediaContainer {
     selectedMeal: InputSignal<Meal | undefined> = input<Meal | undefined>(undefined);
 
     mealDetails: WritableSignal<MealDetails | undefined> = signal(undefined);
+    classesSummary: WritableSignal<Summary[]> = signal([
+        {itemNumber: "30 Min"},
+        {itemNumber: "130 Cal"},
+    ]);
+    mealsSummary: WritableSignal<Summary[]> = signal([
+        {itemNumber: "100 K", itemText: "Energy"},
+        {itemNumber: "15 G", itemText: "Protein"},
+        {itemNumber: "58 G", itemText: "Carbs"},
+        {itemNumber: "20 G", itemText: "Fat"},
+    ]);
 
     private levelsEffect = effect(() => {
         if (this.selectedMeal() !== undefined) {
@@ -36,8 +53,6 @@ export class MediaContainer {
     });
 
     getMealDetails(meal_id: string) {
-        console.log(meal_id, "id");
-
         this._mealService.getMealDetails(meal_id).subscribe({
             next: (res) => {
                 this.mealDetails.set(res.meals[0]);
