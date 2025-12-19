@@ -1,7 +1,6 @@
 <section
     id="details"
-    [class]="{ 'p-6': cat() === 'classes', 'p-7': cat() === 'meals'}"
-    [style.backgroundImage]="'url(./images/details/bg-2.avif)'"
+    [style.backgroundImage]="'url(./images/details/bg-3.avif)'"
 >
     <div class="blur-overlay"></div>
 
@@ -15,18 +14,20 @@
         />
         @if (cat() === 'classes') {
         <app-nav-tabs
+            class="hidden lg:block"
             [navItems]="workout_muscles()"
-            [routerLink]="getPath()"
+            (click)="getPath()"
+            [isInPanel]="false"
         />
         }
         <div class="content grid">
             <app-panel
                 [panelID]="id()"
                 [panelType]="cat()"
-                class="col-4 align-items-center"
+                class="col-12 lg:col-4 align-items-center"
             />
 
-            <div class="video-wrapper col-8">
+            <div class="video-wrapper col-12 lg:col-8">
                 <div class="flex flex-column gap-4">
                     <div class="media-container">
                         <app-media-container

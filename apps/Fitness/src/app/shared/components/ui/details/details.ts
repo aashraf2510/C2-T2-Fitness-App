@@ -2,28 +2,26 @@ import {
     Component,
     computed,
     DestroyRef,
-    effect,
     inject,
     OnInit,
     signal,
     WritableSignal,
 } from "@angular/core";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {ActivatedRoute, Router} from "@angular/router";
+import {MuscleGroup} from "../../../models/muscles";
+import {MealService} from "../../../services/meals/meals";
+import {Muscles} from "../../../services/muscle/muscles";
 import {Panel} from "../business/panel/panel";
 import {NavTabs} from "../navTabs/navTabs";
-import {Muscles} from "../../../services/muscle/muscles";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
-import {MuscleGroup} from "../../../models/muscles";
-import {Exercise} from "../../../models/exercises";
-import {Meal} from "../../../models/meals";
-import {MealService} from "../../../services/meals/meals";
 
-import {MediaContainer} from "./components/media-container/media-container";
-import {WorkoutLegends} from "./components/workout-legends/workout-legends";
-import {Ingradients} from "./components/ingradients/ingradients";
-import {Recomendation} from "./components/recomendation/recomendation";
 import {NgOptimizedImage} from "@angular/common";
 import {CLIENT_ROUTES} from "./../../../../core/constants/client-routes";
+import {StorageKeys} from "./../../../../core/constants/storage.config";
+import {Ingradients} from "./components/ingradients/ingradients";
+import {MediaContainer} from "./components/media-container/media-container";
+import {Recomendation} from "./components/recomendation/recomendation";
+import {WorkoutLegends} from "./components/workout-legends/workout-legends";
 
 @Component({
     selector: "app-details",
@@ -35,7 +33,6 @@ import {CLIENT_ROUTES} from "./../../../../core/constants/client-routes";
         Recomendation,
         NavTabs,
         NgOptimizedImage,
-        RouterLink,
     ],
     templateUrl: "./details.html",
     styleUrl: "./details.scss",
@@ -55,8 +52,17 @@ export class Details implements OnInit {
     selectedExercise = computed(() => this._muscleService.getSelectedExercise());
     selectedMeal = computed(() => this._mealService.getSelectedMeal());
 
+    getCurrentLang(): string {
+        const lang = localStorage.getItem(StorageKeys.LANGUAGE) || "en";
+        return lang.toLowerCase();
+    }
+
     getPath() {
-        return [CLIENT_ROUTES.main.classes];
+        this._router.navigate([
+            this.getCurrentLang(),
+            CLIENT_ROUTES.main.base,
+            CLIENT_ROUTES.main.classes,
+        ]);
     }
 
     ngOnInit(): void {
