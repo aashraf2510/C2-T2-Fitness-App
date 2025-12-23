@@ -35,8 +35,8 @@
     /*meals and workouts shared */
     --main-color: var(--orange-500);
     --text-color: var(--gray-900);
-    --sec-grad-color: var(--gradient-70);
-    --sec-grad-main-color: var(--white);
+    --sec-grad-bg: var(--gradient-70);
+    --sec-grad-main-bg: var(--white);
     /*main card*/
     --desc-bg : var(--gray-300);
     --title-color:var(--gray-900);
@@ -82,7 +82,8 @@
 .dark-mode {
     --body: var(--gray-950);
 
-    --gradient-70: #24242499;
+    --gradient-70: var(--gray-900-60);
+    --home-gradient : rgba(0,0,0,0.7);
 
     // Hero
     --hero-bg: var(--gray-900-60);
@@ -92,8 +93,8 @@
     --about-line-break-bg: var(--gray-100-14);
     //meals and workouts shared
     --text-color: var(--white);
-    --sec-grad-bg: var(--gray-900-60);
-    --sec-grad-main-bg: var(--gray-900-60);
+    --sec-grad-bg: var(--gray-950);
+    --sec-grad-main-bg: var(--gradient-70);
     /*main card*/
     --desc-bg : var(--gray-900-60);
     --title-color:var(--white);

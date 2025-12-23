@@ -11,7 +11,7 @@ html {
 }
 
 .sec-gradient.at-home {
-    background: linear-gradient(to bottom, var(--sec-grad-color) 0% 75%, transparent 70% 100%);
+    background: linear-gradient(to bottom, var(--sec-grad-bg) 0% 75%, transparent 70% 100%);
 }
 
 .sec-gradient {
@@ -35,7 +35,7 @@ html {
     display: block;
     inset: 0;
     backdrop-filter:blur(64px);
-    background: var(--sec-grad-main-color);
+    background: var(--sec-grad-main-bg);
 
 
 
