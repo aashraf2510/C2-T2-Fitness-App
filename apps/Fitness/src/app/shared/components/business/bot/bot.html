@@ -7,7 +7,7 @@
     <app-main-button
          [customClass]="'orange-btn'"
          [fontWeight]="'font-semibold'"
-         [btnText]="'Hey Ask Me'"
+         [btnText]="(isActiveChat() ? 'button.openChat' : 'button.closeChat') | translate"
     />
   </div>
   <div class="chat-box" [class.active]='isActiveChat()' >

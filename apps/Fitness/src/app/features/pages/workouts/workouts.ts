@@ -78,7 +78,6 @@ export class Workouts implements OnInit {
                         name: "full body",
                         isActive: true,
                     });
-                    console.log(this.workout_muscles());
 
                 },
             });

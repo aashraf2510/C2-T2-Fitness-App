@@ -14,6 +14,5 @@ export class Bot {
 
   openChat(){
     this.isActiveChat.update(v=>!v)
-    console.log(this.isActiveChat());
   }
 }
