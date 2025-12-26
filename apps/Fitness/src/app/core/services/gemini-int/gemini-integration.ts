@@ -1,8 +1,6 @@
-import {signal, WritableSignal, computed} from "@angular/core";
-import {inject, Injectable, PLATFORM_ID} from "@angular/core";
-import {GoogleGenerativeAI} from "@google/generative-ai";
-import {ApiKey} from "../../../../../api-key";
 import {isPlatformBrowser} from "@angular/common";
+import {inject, Injectable, PLATFORM_ID, signal} from "@angular/core";
+import {GoogleGenerativeAI} from "@google/generative-ai";
 
 export type ChatRole = "user" | "model";
 
@@ -26,10 +24,6 @@ const STORAGE_KEY = "gemini_chat_history";
 })
 export class GeminiIntegration {
     private readonly _PLATFORM_ID = inject(PLATFORM_ID);
-    private readonly genAI = new GoogleGenerativeAI(ApiKey.googleApiKey);
-    private readonly model = this.genAI.getGenerativeModel({
-        model: "gemini-2.5-flash",
-    });
 
     // Current conversation history
     private history = signal<ChatMessage[]>([]);
@@ -75,31 +69,34 @@ export class GeminiIntegration {
     }
 
     async *sendMessage(prompt: string): AsyncGenerator<string> {
-        // Add user message to current history
-        this.history.update((current) => [...current, {role: "user", text: prompt}]);
+        this.history.update((h) => [...h, {role: "user", text: prompt}]);
 
-        // Prepare the message history for Gemini API
-        const historyForApi = this.history().map((msg) => ({
-            role: msg.role,
-            parts: [{text: msg.text}],
-        }));
-
-        const result = await this.model.generateContentStream({
-            contents: historyForApi,
+        const response = await fetch("/api/gemini/chat", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                messages: this.history(),
+            }),
         });
 
-        let fullResponse = "";
-
-        for await (const chunk of result.stream) {
-            const text = chunk.text();
-            if (text) {
-                fullResponse += text;
-                yield text;
-            }
+        if (!response.body) {
+            throw new Error("No response stream");
         }
 
-        // Add model response to current history
-        this.history.update((current) => [...current, {role: "model", text: fullResponse}]);
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let fullResponse = "";
+
+        while (true) {
+            const {done, value} = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value);
+            fullResponse += chunk;
+            yield chunk;
+        }
+
+        this.history.update((h) => [...h, {role: "model", text: fullResponse}]);
     }
 
     resetConversation(): number {

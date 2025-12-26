@@ -28,6 +28,7 @@
         "@primeuix/themes": "^1.2.5",
         "auth-api-kp": "^0.1.9",
         "concurrently": "^9.2.1",
+        "dotenv": "^17.2.3",
         "express": "^4.21.2",
         "git-cz": "^4.9.0",
         "primeflex": "^4.0.0",
