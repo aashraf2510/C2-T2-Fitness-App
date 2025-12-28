@@ -1,12 +1,17 @@
 {
+    "functions": {
+        "dist/apps/Fitness/server/server.mjs": {
+            "runtime": "nodejs20.x"
+        }
+    },
     "routes": [
         {
             "src": "^/api/(.*)",
-            "dest": "/server"
+            "dest": "dist/apps/Fitness/server/server.mjs"
         },
         {
             "src": "^(.*)$",
-            "dest": "/server"
+            "dest": "dist/apps/Fitness/server/server.mjs"
         }
     ]
 }
