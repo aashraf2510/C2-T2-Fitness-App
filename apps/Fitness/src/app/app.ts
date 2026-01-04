@@ -2,7 +2,7 @@ import {Component, inject} from "@angular/core";
 import {RouterModule} from "@angular/router";
 import {ThemeService} from "@fitness-app/services";
 import {ToastModule} from "primeng/toast";
-import { Bot } from "./shared/components/business/bot/bot";
+import { Bot } from "./features/pages/chat-bot/bot/bot";
 
 @Component({
     imports: [RouterModule, ToastModule, Bot],

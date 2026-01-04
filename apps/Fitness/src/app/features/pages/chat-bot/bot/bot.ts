@@ -1,7 +1,7 @@
 import {Component, signal} from "@angular/core";
-import { MainButton } from "../../ui/main-button/main-button";
 import { TranslatePipe } from "@ngx-translate/core";
 import {FormsModule} from '@angular/forms'
+import {MainButton} from "./../../../../shared/components/ui/main-button/main-button";
 @Component({
     selector: "app-bot",
     imports: [MainButton, TranslatePipe, FormsModule],
