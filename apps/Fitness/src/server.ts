@@ -5,10 +5,10 @@ import {
     isMainModule,
     writeResponseToNodeResponse,
 } from "@angular/ssr/node";
+import {GoogleGenAI} from "@google/genai";
 import express from "express";
 import {dirname, resolve} from "node:path";
 import {fileURLToPath} from "node:url";
-import {GoogleGenerativeAI} from "@google/generative-ai";
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, "../browser");
@@ -19,9 +19,7 @@ const angularApp = new AngularNodeAppEngine();
 app.post("/api/gemini/chat", express.json(), async (req, res) => {
     try {
         const apiKey = process.env["GEMINI_API_KEY"];
-
         if (!apiKey) {
-            console.log("GEMINI_API_KEY:", process.env["GEMINI_API_KEY"]?.slice(0, 6));
             res.status(500).send("Missing GEMINI_API_KEY");
             return;
         }
@@ -30,31 +28,28 @@ app.post("/api/gemini/chat", express.json(), async (req, res) => {
             messages: {role: "user" | "model"; text: string}[];
         };
 
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({
-            model: "gemini-2.5-flash",
-        });
+        const ai = new GoogleGenAI({apiKey});
 
         res.setHeader("Content-Type", "text/plain; charset=utf-8");
         res.setHeader("Transfer-Encoding", "chunked");
 
-        const result = await model.generateContentStream({
+        const stream = await ai.models.generateContentStream({
+            model: "gemini-2.5-flash",
             contents: messages.map((m) => ({
                 role: m.role,
                 parts: [{text: m.text}],
             })),
         });
 
-        for await (const chunk of result.stream) {
-            const text = chunk.text();
-            if (text) {
-                res.write(text);
+        for await (const chunk of stream) {
+            if (chunk.text) {
+                res.write(chunk.text);
             }
         }
 
         res.end();
-    } catch (err) {
-        console.error(err);
+    } catch (error) {
+        console.error("Gemini error:", error);
         res.status(500).end("Gemini error");
     }
 });
