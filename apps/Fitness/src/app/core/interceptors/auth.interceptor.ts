@@ -10,10 +10,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     }
 
     const platform = inject(PlatFormService);
-    
+
     if (platform.isBrowser()) {
         const headers: { [key: string]: string } = {};
-        
+
         const isLoginRequest = req.url.includes("/users/auth/login");
 
         // Token logic from first interceptor
@@ -53,7 +53,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         if (!req.headers.has("accept-language")) {
             headers["accept-language"] = localStorage.getItem(StorageKeys.LANGUAGE) || "en";
         }
-        
+
         // Add lang header from second interceptor
         if (!req.headers.has("lang")) {
             headers["lang"] = localStorage.getItem(StorageKeys.LANGUAGE) || "en";
@@ -65,6 +65,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
             });
         }
     }
-    
+
     return next(req);
 };

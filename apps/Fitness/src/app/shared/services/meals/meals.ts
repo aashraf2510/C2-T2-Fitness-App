@@ -31,7 +31,9 @@ export class MealService {
     getMealsCats(): Observable<mealCatRes> {
         if (!this.categoriesCache$) {
             this.categoriesCache$ = this.http
-                .get<mealCatRes>(`${environment.mealApiUrl}categories.php`)
+                .get<mealCatRes>(`${environment.mealApiUrl}categories.php` , {
+                  credentials:'omit'
+                })
                 .pipe(
                     retry(2),
                     shareReplay({bufferSize: 1, refCount: true}) // Cache the last emission
@@ -43,10 +45,15 @@ export class MealService {
     getMealsByCategory(cat: string): Observable<MealsByCategoryResponse> {
         if (!this.mealsByCategoryCache.has(cat)) {
             const request$ = this.http
-                .get<MealsByCategoryResponse>(`${EndPoint.MEALS_BY_CATEGORY}?c=${cat}`)
+                .get<MealsByCategoryResponse>(`${EndPoint.MEALS_BY_CATEGORY}?c=${cat}` , {
+
+                  credentials:'omit'
+
+                })
                 .pipe(retry(2), shareReplay({bufferSize: 1, refCount: true}));
             this.mealsByCategoryCache.set(cat, request$);
         }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return this.mealsByCategoryCache.get(cat)!;
     }
 
@@ -57,6 +64,7 @@ export class MealService {
                 .pipe(retry(2), shareReplay({bufferSize: 1, refCount: true}));
             this.mealDetailsCache.set(meal_id, request$);
         }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return this.mealDetailsCache.get(meal_id)!;
     }
 
