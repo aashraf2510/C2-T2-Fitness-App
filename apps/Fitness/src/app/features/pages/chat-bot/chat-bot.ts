@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal} from "@angular/core";
+import {Component, computed, DestroyRef, inject, signal} from "@angular/core";
 import {DatePipe, SlicePipe} from "@angular/common";
 // Shared_Services
 import {
@@ -6,6 +6,7 @@ import {
     ChatSession,
     GeminiIntegration,
 } from "../../../core/services/gemini-int/gemini-integration";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
     selector: "app-chat-bot",
@@ -15,18 +16,17 @@ import {
 })
 export class ChatBot {
     private gemini = inject(GeminiIntegration);
+    private destroyRef = inject(DestroyRef);
 
     messages = signal<ChatMessage[]>([]);
     chatHistory = signal<ChatSession[]>([]);
     isStreaming = signal<boolean>(false);
 
-    async send(prompt: string) {
+    send(prompt: string) {
         if (!prompt.trim()) return;
 
-        // Push user message
         this.messages.update((m) => [...m, {role: "user", text: prompt}]);
 
-        // Prepare placeholder for model message
         let modelIndex = -1;
         this.messages.update((m) => {
             modelIndex = m.length;
@@ -35,24 +35,30 @@ export class ChatBot {
 
         this.isStreaming.set(true);
 
-        try {
-            for await (const chunk of this.gemini.sendMessage(prompt)) {
-                this.messages.update((m) => {
-                    const updated = [...m];
-                    updated[modelIndex] = {
-                        ...updated[modelIndex],
-                        text: updated[modelIndex].text + chunk,
-                    };
-                    return updated;
-                });
-            }
-        } finally {
-            this.isStreaming.set(false);
-        }
+        this.gemini
+            .sendMessage$(prompt)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (chunk) => {
+                    this.messages.update((m) => {
+                        const updated = [...m];
+                        updated[modelIndex] = {
+                            ...updated[modelIndex],
+                            text: chunk,
+                        };
+                        return updated;
+                    });
+                },
+                complete: () => {
+                    this.isStreaming.set(false);
+                },
+                error: () => {
+                    this.isStreaming.set(false);
+                },
+            });
     }
 
     getHistory() {
-        // Get the history from the service
         this.chatHistory.set(this.gemini.allChatSessions());
     }
 

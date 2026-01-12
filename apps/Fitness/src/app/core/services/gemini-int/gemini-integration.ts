@@ -1,6 +1,8 @@
 import {isPlatformBrowser} from "@angular/common";
 import {inject, Injectable, PLATFORM_ID, signal} from "@angular/core";
 import {StorageKeys} from "../../constants/storage.config";
+import {HttpClient, HttpEvent, HttpEventType} from "@angular/common/http";
+import {Observable, filter, finalize, map, scan} from "rxjs";
 
 export type ChatRole = "user" | "model";
 
@@ -22,9 +24,11 @@ export interface ChatSession {
 })
 export class GeminiIntegration {
     private readonly _PLATFORM_ID = inject(PLATFORM_ID);
+    private readonly http = inject(HttpClient);
     private activeSessionId = signal<number | null>(null);
     readonly currentSessionId = this.activeSessionId.asReadonly();
 
+    private currentModelBuffer = "";
     // Current conversation history
     private history = signal<ChatMessage[]>([]);
 
@@ -57,7 +61,7 @@ export class GeminiIntegration {
         }
     }
 
-    private saveToStorage(): void {
+    saveToStorage(): void {
         if (!isPlatformBrowser(this._PLATFORM_ID)) return;
 
         try {
@@ -67,35 +71,78 @@ export class GeminiIntegration {
         }
     }
 
-    async *sendMessage(prompt: string): AsyncGenerator<string> {
+    persistActiveSession() {
+        const messages = this.history();
+        if (!messages.length) return;
+
+        const now = Date.now();
+        const activeId = this.activeSessionId();
+
+        if (activeId) {
+            this.chatHistory.update((sessions) =>
+                sessions.map((session) =>
+                    session.id === activeId ? {...session, messages, updatedAt: now} : session
+                )
+            );
+        } else {
+            const newSession: ChatSession = {
+                id: Date.now() + Math.random(),
+                messages,
+                createdAt: now,
+                updatedAt: now,
+                title: this.generateSessionTitle(messages),
+            };
+
+            this.chatHistory.update((s) => [newSession, ...s]);
+            this.activeSessionId.set(newSession.id);
+        }
+
+        this.saveToStorage();
+    }
+
+    sendMessage$(prompt: string) {
+        // 1️⃣ push user message immediately
         this.history.update((h) => [...h, {role: "user", text: prompt}]);
 
-        const response = await fetch("/api/gemini/chat", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                messages: this.history(),
-            }),
-        });
+        this.currentModelBuffer = "";
+        let lastLength = 0;
 
-        if (!response.body) {
-            throw new Error("No response stream");
-        }
+        return this.http
+            .post(
+                "/api/gemini/chat",
+                {messages: this.history()},
+                {
+                    observe: "events",
+                    responseType: "text",
+                    reportProgress: true,
+                }
+            )
+            .pipe(
+                filter((event) => event.type === HttpEventType.DownloadProgress),
+                map((event: any) => {
+                    const text = event.partialText ?? event.target?.responseText ?? "";
+                    const chunk = text.substring(lastLength);
+                    lastLength = text.length;
 
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let fullResponse = "";
+                    if (chunk) {
+                        this.currentModelBuffer += chunk;
+                    }
 
-        while (true) {
-            const {done, value} = await reader.read();
-            if (done) break;
+                    return this.currentModelBuffer;
+                }),
+                finalize(() => {
+                    // 2️⃣ commit model message ONCE
+                    if (this.currentModelBuffer.trim()) {
+                        this.history.update((h) => [
+                            ...h,
+                            {role: "model", text: this.currentModelBuffer},
+                        ]);
+                    }
 
-            const chunk = decoder.decode(value);
-            fullResponse += chunk;
-            yield chunk;
-        }
-
-        this.history.update((h) => [...h, {role: "model", text: fullResponse}]);
+                    this.persistActiveSession();
+                    this.currentModelBuffer = "";
+                })
+            );
     }
 
     resetConversation(): number {
@@ -121,7 +168,7 @@ export class GeminiIntegration {
         } else {
             // 🆕 Create new session
             const newSession: ChatSession = {
-                id: now,
+                id: Date.now() + Math.random(),
                 messages: [...currentMessages],
                 createdAt: now,
                 updatedAt: now,
@@ -141,7 +188,7 @@ export class GeminiIntegration {
         return this.chatHistory().length;
     }
 
-    private generateSessionTitle(messages: ChatMessage[]): string {
+    generateSessionTitle(messages: ChatMessage[]): string {
         // Generate a title from the first user message or use a default
         const firstUserMessage = messages.find((msg) => msg.role === "user");
         if (firstUserMessage) {
