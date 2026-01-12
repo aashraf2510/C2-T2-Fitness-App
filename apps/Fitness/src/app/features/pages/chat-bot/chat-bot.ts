@@ -1,12 +1,13 @@
 import {Component, computed, DestroyRef, inject, signal} from "@angular/core";
 import {DatePipe, SlicePipe} from "@angular/common";
+// rxjs
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 // Shared_Services
 import {
     ChatMessage,
     ChatSession,
     GeminiIntegration,
 } from "../../../core/services/gemini-int/gemini-integration";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 @Component({
     selector: "app-chat-bot",

@@ -1,8 +1,10 @@
 import {isPlatformBrowser} from "@angular/common";
+import {HttpClient, HttpEventType} from "@angular/common/http";
 import {inject, Injectable, PLATFORM_ID, signal} from "@angular/core";
+// rxjs
+import {filter, finalize, map} from "rxjs";
+// constants
 import {StorageKeys} from "../../constants/storage.config";
-import {HttpClient, HttpEvent, HttpEventType} from "@angular/common/http";
-import {Observable, filter, finalize, map, scan} from "rxjs";
 
 export type ChatRole = "user" | "model";
 
