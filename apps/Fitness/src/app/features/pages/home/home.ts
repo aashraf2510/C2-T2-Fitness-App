@@ -46,12 +46,12 @@ export class Home {
     currentLang = this.translation.lang;
 
     // Get current URL for display
-    currentUrl = computed(() => {
-        if (isPlatformBrowser(this.platformId)) {
-            return window.location.href;
-        }
-        return "";
-    });
+    // currentUrl = computed(() => {
+    //     if (isPlatformBrowser(this.platformId)) {
+    //         return window.location.href;
+    //     }
+    //     return "";
+    // });
 
     // Get supported languages for buttons
     readonly languages = [
