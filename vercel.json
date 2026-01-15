@@ -1,9 +1,8 @@
 {
-    "rewrites": [
-        {
-            "source": "/api/:path*",
-            "destination": "/api/:path*"
-        },
-        {"source": "/(.*)", "destination": "/"}
-    ]
+    "rewrites": [{"source": "/(.*)", "destination": "/"}],
+    "functions": {
+    "api/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
 }
