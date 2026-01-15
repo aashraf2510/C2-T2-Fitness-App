@@ -1,6 +1,6 @@
 import {GoogleGenAI, HarmCategory, HarmBlockThreshold} from "@google/genai";
 
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
     // Enable CORS
     res.setHeader("Access-Control-Allow-Credentials", true);
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -83,10 +83,10 @@ If a user asks about non-fitness topics, politely steer them back to health and 
         }
 
         res.end();
-    } catch (error) {
+    } catch (error: any) {
         console.error("Gemini error:", error);
         if (!res.headersSent) {
-            res.status(500).json({error: "Gemini API error", details: error.message});
+            res.status(500).json({error: "Gemini API error", details: error?.message});
         } else {
             res.end();
         }
